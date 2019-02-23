@@ -6,10 +6,12 @@
 
     <title>CarSharing</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="../resources/css/homePage.css">
+    <link rel="stylesheet" href="../resources/css/headerAndFooter.css">
 </head>
 <body>
+<div th:insert="~{header :: #myNav}"></div>
 <div class="container-fluid" id="blockWithBackgroundImage">
     <div class="container container-centered">
         <div class="row centered">
@@ -63,7 +65,7 @@
         </div>
     </div>
 </div>
-
+<footer th:insert="~{footer :: myFooter}"></footer>
 
 
 
