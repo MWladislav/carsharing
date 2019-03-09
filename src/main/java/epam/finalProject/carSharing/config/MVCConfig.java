@@ -1,0 +1,81 @@
+package epam.finalProject.carSharing.config;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ITemplateResolver;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan("epam.finalProject.carSharing")
+public class MVCConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext=applicationContext;
+    }
+
+    //@Bean
+    //public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+    //    return new PropertySourcesPlaceholderConfigurer();
+    //}
+
+
+
+    @Bean(name = "viewResolver")
+    public ThymeleafViewResolver htmlViewResolver() {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine());
+//        resolver.setContentType("text/html");
+        resolver.setCharacterEncoding("UTF-8");
+        resolver.setOrder(1);
+//        resolver.setViewNames(new String[]{"*.html"});
+        return resolver;
+    }
+
+    @Bean(name = "templateEngine")
+    public SpringTemplateEngine templateEngine() {
+        SpringTemplateEngine engine = new SpringTemplateEngine();
+        engine.setEnableSpringELCompiler(true);
+        engine.setTemplateResolver(htmlTemplateResolver());
+        return engine;
+    }
+
+    @Bean(name = "templateResolver")
+    public SpringResourceTemplateResolver htmlTemplateResolver() {
+        SpringResourceTemplateResolver resolver
+                = new SpringResourceTemplateResolver();
+        resolver.setPrefix("/views/");
+        resolver.setApplicationContext(applicationContext);
+        resolver.setSuffix(".html");
+//        resolver.setCacheable(false);
+        resolver.setTemplateMode(TemplateMode.HTML);
+        return resolver;
+    }
+
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
+    }
+
+
+}
