@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../resources/css/headerAndFooter.css">
 </head>
 <body>
-<header th:replace="~{header :: #myNav}" style="width: 100%"></header>
+<header th:replace="~{header :: #myNav}"></header>
 <div class="container-fluid" id="blockWithBackgroundImage">
     <div class="container container-centered">
         <div class="row centered">
@@ -65,7 +65,7 @@
         </div>
     </div>
 </div>
-<footer th:insert="~{footer :: myFooter}"></footer>
+<footer th:replace="~{footer :: #myFooter}"></footer>
 
 
 
