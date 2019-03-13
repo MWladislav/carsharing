@@ -13,17 +13,17 @@ import java.util.List;
 @Repository
 public class OrderDaoImpl implements OrderDao {
 
-    private final String SQL_FIND_ORDERS_BY_USER_ID = "select o.idOrder, o.confirmation_date, o.payment_date, o.orderDuration, o.order_status, o.price, o.car_id " +
-            "from order o where o.user_id=?";
+    private final String SQL_FIND_ORDERS_BY_USER_ID = "select o.idOrder, o.confirmation_date, o.payment_date, o.orderDuration, o.order_status, o.price, o.car_id, o.user_id " +
+            "from `order` o where o.user_id=?";
     private final String SQL_FIND_ORDERS_BY_CAR_ID = "select o.idOrder, o.confirmation_date, o.payment_date, o.orderDuration, o.order_status, o.price, o.user_id " +
-            "from order o where o.car_id=?";
-    private final String SQL_GET_ALL = "select * from order";
-    private final String SQL_GET_ORDER_BY_ID = "select * from order where idOrder=?";
-    private final String SQL_DELETE_ORDER = "delete from order where idOrder = ?";
-    private final String SQL_UPDATE_ORDER_SET_CONFIRMED = "update order set confirmation_date=?, order_status=?, price=? where idOrder = ?";
-    private final String SQL_UPDATE_ORDER_STATUS = "update order set order_status=? where idOrder = ?";
-    private final String SQL_UPDATE_ORDER_SET_PAID = "update order set order_status=?, payment_date=? where idOrder = ?";
-    private final String SQL_SAVE_ORDER = "insert into order(user_id,car_id,orderDuration,order_status) values (?,?,?,?)";
+            "from `order` o where o.car_id=?";
+    private final String SQL_GET_ALL = "select * from `order`";
+    private final String SQL_GET_ORDER_BY_ID = "select * from `order` where idOrder=?";
+    private final String SQL_DELETE_ORDER = "delete from `order` where idOrder = ?";
+    private final String SQL_UPDATE_ORDER_SET_CONFIRMED = "update `order` set confirmation_date=?, order_status=?, price=? where idOrder = ?";
+    private final String SQL_UPDATE_ORDER_STATUS = "update `order` set order_status=? where idOrder = ?";
+    private final String SQL_UPDATE_ORDER_SET_PAID = "update `order` set order_status=?, payment_date=? where idOrder = ?";
+    private final String SQL_SAVE_ORDER = "insert into `order`(user_id,car_id,orderDuration,order_status) values (?,?,?,?)";
 
     private JdbcTemplate jdbcTemplate;
 

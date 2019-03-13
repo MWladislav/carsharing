@@ -22,9 +22,14 @@
     <div class="row">
         <H3 class="label" th:text="'Your email:' + ${email}"></H3>
     </div>
-    <div class="row">
-        <H3 class="label" th:text="'Your role:' + ${role}"></H3>
+
+    <div class="container">
+        <h2 class="label" th:text="'Your first order is '+${car.manufacturer}+' '+${car.model}"></h2>
+        <img th:src="${car.images.get(0)}" alt="">
+        <h3 class="label" th:text="'Price of this order is '+${price}"></h3>
+        <h3 class="label" th:text="'Order is '+${status}"></h3>
     </div>
+
     <div class="row">
         <a th:href="@{/admin}">Admin's page</a>
     </div>

@@ -13,7 +13,7 @@ public class OrderMapper implements RowMapper<Order> {
         Order order = new Order();
         order.setId(resultSet.getInt("idOrder"));
         order.setPrice(resultSet.getInt("price"));
-        order.setStatus(OrderStatus.valueOf(resultSet.getString("status")));
+        order.setStatus(OrderStatus.valueOf(resultSet.getString("order_status")));
         order.setConfirmationDate(resultSet.getTimestamp("confirmation_date").toLocalDateTime());
         order.setPaymentDate(resultSet.getTimestamp("payment_date").toLocalDateTime());
         order.setOrderDuration(resultSet.getInt("orderDuration"));

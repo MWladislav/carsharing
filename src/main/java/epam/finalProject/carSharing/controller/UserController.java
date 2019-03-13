@@ -1,7 +1,10 @@
 package epam.finalProject.carSharing.controller;
 
-import epam.finalProject.carSharing.model.domain.entity.UserDetailsImpl;
+import epam.finalProject.carSharing.model.domain.entity.Car;
+import epam.finalProject.carSharing.model.domain.entity.Order;
 import epam.finalProject.carSharing.model.domain.entity.User;
+import epam.finalProject.carSharing.model.domain.entity.UserDetailsImpl;
+import epam.finalProject.carSharing.model.service.interfaces.CarService;
 import epam.finalProject.carSharing.model.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,15 +18,21 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CarService carService;
 
-
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String welcome(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {
-        User user= userDetailsImpl.getUser();
+    @RequestMapping(value = "/userPage", method = RequestMethod.GET)
+    public String userPage(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {
+        User user=userService.getByIdWithOrders(userDetailsImpl.getId());
         model.addAttribute("email",user.getEmail());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("role",user.getRole());
-        return "welcome";
+        Order order=user.getOrders().get(0);
+        model.addAttribute("price",order.getPrice());
+        model.addAttribute("status",order.getStatus());
+        Car car=carService.getById(order.getCarId());
+        model.addAttribute("car",car);
+        return "userPage";
     }
 
 

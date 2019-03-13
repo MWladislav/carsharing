@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="../../resources/css/homePage.css">
-    <link rel="stylesheet" href="../../resources/css/headerAndFooter.css">
+    <link rel="stylesheet" th:href="@{../../resources/css/headerAndFooter.css}">
 </head>
 <body>
 <header th:replace="~{header :: #myNav}"></header>
@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <h4 class="card-title" th:text="${car.manufacturer}+' '+${car.model}"></h4>
                         <!--<p class="card-body"></p>-->
-                        <button type="button" class="btn" id="brown">Check this car</button>
+                        <button type="button" class="btn">Check this car</button>
                     </div>
                 </a>
             </div>
