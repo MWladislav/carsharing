@@ -31,21 +31,12 @@ public class MVCConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         this.applicationContext=applicationContext;
     }
 
-    //@Bean
-    //public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
-    //    return new PropertySourcesPlaceholderConfigurer();
-    //}
-
-
-
     @Bean(name = "viewResolver")
     public ThymeleafViewResolver htmlViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
-//        resolver.setContentType("text/html");
         resolver.setCharacterEncoding("UTF-8");
         resolver.setOrder(1);
-//        resolver.setViewNames(new String[]{"*.html"});
         return resolver;
     }
 
@@ -61,15 +52,13 @@ public class MVCConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public SpringResourceTemplateResolver htmlTemplateResolver() {
         SpringResourceTemplateResolver resolver
                 = new SpringResourceTemplateResolver();
-        resolver.setPrefix("/views/");
+        resolver.setPrefix("/WEB-INF/views/");
         resolver.setApplicationContext(applicationContext);
         resolver.setSuffix(".html");
 //        resolver.setCacheable(false);
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
     }
-
-
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

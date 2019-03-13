@@ -1,7 +1,7 @@
 package epam.finalProject.carSharing.model.service.impls;
 
 import epam.finalProject.carSharing.model.dao.interfaces.UserDao;
-import epam.finalProject.carSharing.model.domain.entity.CustomUser;
+import epam.finalProject.carSharing.model.domain.entity.UserDetailsImpl;
 import epam.finalProject.carSharing.model.domain.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(s);
         }
-        return new CustomUser(user);
+        return new UserDetailsImpl(user);
     }
 }

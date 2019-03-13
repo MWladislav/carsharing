@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CustomUser implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private final User user;
 
-    public CustomUser(User user) {
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 
@@ -53,7 +53,7 @@ public class CustomUser implements UserDetails {
         return true;
     }
 
-    public User getCurrentUser() {
+    public User getUser() {
         return user;
     }
 
