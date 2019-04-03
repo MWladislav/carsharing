@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your orders</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{../../resources/css/headerAndFooter.css}">
+</head>
+<body>
+
+<nav th:replace="header::myNav"></nav>
+
+
+<table class="table table-striped table-hover" align="left">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Confirmation date</th>
+        <th scope="col">Payment date</th>
+        <th scope="col">Order duration</th>
+        <th scope="col">Confirmation date</th>
+        <th scope="col">Price</th>
+        <th scope="col">Car id</th>
+        <th scope="col">Additional info</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <th scope="row" th:text="${order.id}"></th>
+        <td th:text="${order.confirmationDate}"></td>
+        <td th:text="${order.paymentDate}"></td>
+        <td th:text="${order.orderDuration}"></td>
+        <td th:text="${order.confirmationDate}"></td>
+        <td th:text="${order.price}"></td>
+        <td th:text="${order.carId}"></td>
+        <td th:text="${#lists.isEmpty(order.orderAdditionalInfo)} ? 'No additional info available' : ${order.orderAdditionalInfo.get(0).infoDetails}"></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+
+<footer th:replace="footer::footer"></footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+</html>
