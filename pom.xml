@@ -29,7 +29,13 @@
             </plugin>
         </plugins>
     </build>
-    <packaging>war</packaging>
+    <modules>
+        <module>server-controller</module>
+        <module>server-model</module>
+        <module>server-web</module>
+    </modules>
+
+    <packaging>pom</packaging>
 
 
     <dependencies>
@@ -105,8 +111,6 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
-
     </dependencies>
 
 

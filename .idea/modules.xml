@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/carsharing.iml" filepath="$PROJECT_DIR$/.idea/carsharing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-controller/server-controller.iml" filepath="$PROJECT_DIR$/server-controller/server-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-model/server-model.iml" filepath="$PROJECT_DIR$/server-model/server-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-web/server-web.iml" filepath="$PROJECT_DIR$/server-web/server-web.iml" />
     </modules>
   </component>
 </project>

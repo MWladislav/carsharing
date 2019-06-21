@@ -6,11 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="carsharing" />
+        <module name="server-controller" />
+        <module name="server-model" />
+        <module name="server-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="carsharing" target="8" />
+      <module name="server-controller" target="8" />
+      <module name="server-model" target="8" />
+      <module name="server-restapi" target="8" />
+      <module name="server-web" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
