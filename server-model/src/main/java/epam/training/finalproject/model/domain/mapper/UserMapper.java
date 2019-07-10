@@ -1,7 +1,7 @@
 package epam.training.finalproject.model.domain.mapper;
 
 import epam.training.finalproject.model.domain.entity.User;
-import epam.training.finalproject.model.domain.entity.enums.Role;
+import epam.training.finalproject.model.domain.entity.enums.RoleName;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -16,7 +16,6 @@ public class UserMapper implements RowMapper<User> {
         user.setPassword(resultSet.getString("password"));
         user.setEmail(resultSet.getString("email"));
         user.setActive(resultSet.getInt("active")==1);
-        user.setRole(Role.valueOf(resultSet.getString("role_name")));
         return user;
     }
 }

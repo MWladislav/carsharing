@@ -18,7 +18,7 @@ public class AddressDaoImpl implements AddressDao {
     private final String SQL_FIND_BY_COUNTRY = "select * from address where country=?";
     private final String SQL_FIND_BY_CITY = "select * from address where city=?";
     private final String SQL_FIND_BY_STREET = "select * from address where street=?";
-    private final String SQL_GET_ADDRESS_BY_ID = "select * from address where idAddress=?";
+    private final String SQL_GET_BY_ID = "select * from address where idAddress=?";
     private final String SQL_DELETE_ADDRESS = "delete from address where idAddress = ?";
     private final String SQL_UPDATE_ADDRESS = "update address set country=?, city=?, street=?, house_number=?, flat_number=? where idAddress = ?";
     private final String SQL_SAVE_ADDRESS = "insert into address(country,city,street,house_number,flat_number) values(?,?,?,?,?)";
@@ -33,7 +33,7 @@ public class AddressDaoImpl implements AddressDao {
 
     @Override
     public Address getById(Long id) {
-        return jdbcTemplate.queryForObject(SQL_GET_ADDRESS_BY_ID,new AddressMapper(),id);
+        return jdbcTemplate.queryForObject(SQL_GET_BY_ID,new AddressMapper(),id);
     }
 
     @Override

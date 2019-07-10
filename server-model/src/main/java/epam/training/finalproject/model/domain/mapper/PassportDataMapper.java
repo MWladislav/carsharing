@@ -19,9 +19,6 @@ public class PassportDataMapper implements RowMapper<PassportData> {
         passportData.setPassportNumber(resultSet.getString("passport_number"));
         passportData.setIdentificationNumber(resultSet.getString("identification_number"));
         passportData.setGender(Gender.valueOf(resultSet.getString("gender").toUpperCase()));
-
-        Address address = new AddressMapper().mapRow(resultSet,i);
-        passportData.setAddress(address);
         return passportData;
     }
 }

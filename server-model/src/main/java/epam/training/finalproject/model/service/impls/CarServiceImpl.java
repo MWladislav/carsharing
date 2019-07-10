@@ -29,19 +29,6 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car getCarWithOrders(long id) {
-        if (id>0){
-            Car car=carDao.getById(id);
-            List<CarImage> images=carImageDao.findCarImageByCarId(id);
-            car.setImages(images);
-            List<Order> orders=orderDao.findOrdersByCarId(id);
-            car.setOrders(orders);
-            return car;
-        }
-        return null;
-    }
-
-    @Override
     public List<Car> getCarsByAvailable(boolean available) {
         return carDao.getCarsByAvailable(available);
     }

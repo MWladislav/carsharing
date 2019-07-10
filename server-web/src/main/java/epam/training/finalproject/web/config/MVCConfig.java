@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,7 +19,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("epam.training.finalproject.web")
+@ComponentScan(basePackages = {
+        "epam.training.finalproject.web",
+        "epam.training.finalproject.controller",
+        "epam.training.finalproject.model"})
 public class MVCConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -28,47 +32,28 @@ public class MVCConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         this.applicationContext=applicationContext;
     }
 
-    @Bean(name = "viewResolver")
-    public ThymeleafViewResolver htmlViewResolver() {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        resolver.setCharacterEncoding("UTF-8");
-        resolver.setOrder(1);
-        return resolver;
-    }
-
-    @Bean(name = "templateEngine")
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setEnableSpringELCompiler(true);
-        engine.setTemplateResolver(htmlTemplateResolver());
-        return engine;
-    }
-
-    @Bean(name = "templateResolver")
-    public SpringResourceTemplateResolver htmlTemplateResolver() {
-        SpringResourceTemplateResolver resolver
-                = new SpringResourceTemplateResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setApplicationContext(applicationContext);
-        resolver.setSuffix(".html");
-        resolver.setCacheable(false);
-        resolver.setTemplateMode(TemplateMode.HTML);
-        return resolver;
-    }
+    private final long MAX_AGE_SECS = 3600;
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
+                .maxAge(MAX_AGE_SECS);
     }
 
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:validation");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/resources/**")
+//                .addResourceLocations("/resources/");
+//    }
+//
+//    @Bean
+//    public MessageSource messageSource() {
+//        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+//        messageSource.setBasename("classpath:validation");
+//        messageSource.setDefaultEncoding("UTF-8");
+//        return messageSource;
+//    }
 
 }

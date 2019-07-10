@@ -1,7 +1,5 @@
 package epam.training.finalproject.model.domain.entity;
 
-import epam.training.finalproject.model.domain.entity.enums.Role;
-
 import java.util.List;
 
 public class User extends Persistent{
@@ -10,7 +8,7 @@ public class User extends Persistent{
     private String password;
     private String email;
     private boolean active;
-    private Role role;
+    private List<Role> roles;
     private PassportData passportData;
     private List<Order> orders;
 
@@ -22,12 +20,12 @@ public class User extends Persistent{
         this.orders = orders;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public boolean isActive() {

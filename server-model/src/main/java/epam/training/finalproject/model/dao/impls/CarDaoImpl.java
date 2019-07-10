@@ -19,7 +19,7 @@ public class CarDaoImpl implements CarDao {
     private final String SQL_DELETE_CAR = "delete from car where idCar = ?";
     private final String SQL_UPDATE_CAR = "update car set manufacturer=?, model=?, body_type=?, " +
             "engine_type=?, year_of_issue=?,available=? where idCar = ?";
-    private final String SQL_UPDATE_CAR_ENABLED = "update car set available=? where idCar = ?";
+    private final String SQL_UPDATE_CAR_AVAILABLE = "update car set available=? where idCar = ?";
     private final String SQL_SAVE_CAR = "insert into car(manufacturer,model,body_type,engine_type,year_of_issue,available)" +
             " values (?,?,?,?,?,?)";
 
@@ -58,7 +58,7 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public Long updateCarAvailable(Car car) {
-        return (long) jdbcTemplate.update(SQL_UPDATE_CAR_ENABLED,car.isAvailable(),car.getId());
+        return (long) jdbcTemplate.update(SQL_UPDATE_CAR_AVAILABLE,car.isAvailable(),car.getId());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package epam.training.finalproject.model.service.impls;
 
+import epam.training.finalproject.exceptions.EntityNotFoundException;
 import epam.training.finalproject.model.dao.interfaces.OrderAdditionalInfoDao;
 import epam.training.finalproject.model.dao.interfaces.OrderDao;
 import epam.training.finalproject.model.domain.entity.Order;
@@ -7,6 +8,7 @@ import epam.training.finalproject.model.domain.entity.OrderAdditionalInfo;
 import epam.training.finalproject.model.domain.entity.enums.OrderStatus;
 import epam.training.finalproject.model.service.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,31 +20,34 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDao orderDao;
-    @Autowired
-    private OrderAdditionalInfoDao infoDao;
 
     public List<Order> findOrdersByUserId(long idUser){
-        return orderDao.findOrdersByUserId(idUser);
-    }
-
-    @Override
-    public Order getOrderWithOrderAdditionalInfo(Long id) {
-        Order order=orderDao.getById(id);
-        List<OrderAdditionalInfo> infoList=infoDao.findAdditionalInfoByOrderId(id);
-        order.setOrderAdditionalInfo(infoList);
-        return order;
+        try {
+            return orderDao.findOrdersByUserId(idUser);
+        }
+        catch (DataAccessException ex){
+            throw new EntityNotFoundException("Order for user with id "+idUser+" is not found",ex.getCause());
+        }
     }
 
     @Override
     public Order getById(Long id) {
-        if (id>0)
+        try {
             return orderDao.getById(id);
-        return null;
+        }
+        catch (DataAccessException ex){
+            throw new EntityNotFoundException("Order with id "+id+" is not found",ex.getCause());
+        }
     }
 
     @Override
     public List<Order> getAll() {
-        return orderDao.getAll();
+        try {
+            return orderDao.getAll();
+        }
+        catch (DataAccessException ex){
+            throw new EntityNotFoundException("Orders are not found",ex.getCause());
+        }
     }
 
     @Override

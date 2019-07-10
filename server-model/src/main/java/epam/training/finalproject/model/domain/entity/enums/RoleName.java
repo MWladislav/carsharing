@@ -1,5 +1,5 @@
 package epam.training.finalproject.model.domain.entity.enums;
 
-public enum Role {
+public enum RoleName {
     ROLE_USER,ROLE_ADMIN
 }

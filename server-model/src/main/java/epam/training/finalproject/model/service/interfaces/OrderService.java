@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface OrderService extends PersistentService<Long, Order> {
 
-    Order getOrderWithOrderAdditionalInfo(Long id);
-
     Long updateOrderSetPaid(Order order);
 
     Long updateOrderStatus(Order order);

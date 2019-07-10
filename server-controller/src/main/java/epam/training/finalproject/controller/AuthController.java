@@ -1,67 +1,106 @@
 package epam.training.finalproject.controller;
 
+import epam.training.finalproject.dto.ApiResponse;
+import epam.training.finalproject.dto.JwtAuthenticationResponse;
+import epam.training.finalproject.dto.LoginRequest;
+import epam.training.finalproject.dto.SignUpRequest;
+import epam.training.finalproject.jwt.JwtTokenProvider;
+import epam.training.finalproject.model.domain.entity.Role;
 import epam.training.finalproject.model.domain.entity.User;
-import epam.training.finalproject.model.domain.entity.UserFormParams;
+import epam.training.finalproject.model.domain.entity.enums.RoleName;
+import epam.training.finalproject.model.service.interfaces.RoleService;
 import epam.training.finalproject.model.service.interfaces.UserService;
-import epam.training.finalproject.validator.UserRegistrationValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-@Controller
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.Collections;
+
+@RestController
 public class AuthController {
+
+    private final JwtTokenProvider tokenProvider;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private UserRegistrationValidator validator;
+    private RoleService roleService;
 
     private static final Logger LOGGER = Logger.getLogger(AuthController.class);
 
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public Long register(User newUser) {
-//        try {
-//            return userService.save(newUser);
-//        } catch (Exception e) {
-//            LOGGER.error(e.getMessage());
-//            return 0L;
-//        }
-//    }
-
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("userFormParams", new UserFormParams());
-        return "registration";
+    @Autowired
+    public AuthController(JwtTokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userFormParams") UserFormParams userFormParams, BindingResult bindingResult, Model model) {
-        validator.validate(userFormParams, bindingResult);
-        User user=new User();
-        if (bindingResult.hasErrors()) {
-            return "registration";
+//    @PostMapping(value = "/registration")
+//    public long registration(@Validated @RequestBody User user) {
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        return userService.save(user);
+//    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsernameOrEmail(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = tokenProvider.generateToken(authentication);
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+        if(userService.existsByUsername(signUpRequest.getUsername())) {
+            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
+                    HttpStatus.BAD_REQUEST);
         }
-        user.setEmail(userFormParams.getEmail());
-        user.setUsername(userFormParams.getUsername());
-        user.setPassword(userFormParams.getPassword());
+
+        if(userService.existsByUsername(signUpRequest.getEmail())) {
+            return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        // Creating user's account
+        User user = new User();
+        user.setUsername(signUpRequest.getUsername());
+        user.setEmail(signUpRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        Role userRole = roleService.findByRoleName(RoleName.ROLE_USER);
+        user.setRoles(Collections.singletonList((userRole)));
 
         userService.save(user);
 
-        return "redirect:/login";
-    }
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/api/users/{username}")
+                .buildAndExpand(user.getUsername()).toUri();
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error) {
-        if (error != null) {
-            model.addAttribute("error", "");
-        }
-        return "login";
+        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
 
 

@@ -6,6 +6,6 @@ public interface UserDao extends PersistentDao<Long,User> {
 
     User findByUsername(String username);
 
-    User getByIdWithPassportData(Long id);
+    boolean existsByUsername(String username);
 
 }

@@ -1,20 +1,20 @@
 package epam.training.finalproject.controller;
 
-import epam.training.finalproject.model.domain.entity.Car;
 import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.domain.entity.User;
-import epam.training.finalproject.model.domain.entity.UserDetailsImpl;
+import epam.training.finalproject.security.UserPrincipal;
 import epam.training.finalproject.model.service.interfaces.CarService;
 import epam.training.finalproject.model.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class UserController {
 
     @Autowired
@@ -22,26 +22,18 @@ public class UserController {
     @Autowired
     private CarService carService;
 
-    @GetMapping(value = "/userPage")
-    public String userPage(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) throws Exception{
-//        User test=userService.findByUsername("x");
-        User user=userService.getByIdWithOrders(userDetailsImpl.getId());
-        model.addAttribute("email",user.getEmail());
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("role",user.getRole());
-        Order order=user.getOrders().get(0);
-        model.addAttribute("price",order.getPrice());
-        model.addAttribute("status",order.getStatus().toString().toLowerCase());
-        Car car=carService.getById(order.getCarId());
-        model.addAttribute("car",car);
-        return "userPage";
+    @GetMapping(value = "/users/id{id}")
+    public User userPage(@PathVariable Long id, @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception{
+        User userFromRequest=userService.getById(id);
+        if (userFromRequest==null){
+
+        }
+
+        return userService.getById(userPrincipal.getId());
     }
 
     @GetMapping(value = "/userPage/orders")
-    public String getUserOrders(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,Model model){
-        User user=userService.getByIdWithOrdersAndAdInfo(userDetailsImpl.getId());
-        List<Order> orders=user.getOrders();
-        model.addAttribute("orders",orders);
-        return "userOrders";
+    public List<Order> getUserOrders(@AuthenticationPrincipal UserPrincipal userPrincipal, Model model){
+        return userService.getById(userPrincipal.getId()).getOrders();
     }
 }
