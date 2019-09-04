@@ -44,13 +44,13 @@ INSERT INTO `address` VALUES (1,'adminland','admincity','adminstreet',1,1),(2,'t
 UNLOCK TABLES;
 
 --
--- Table structure for table `car`
+-- Table structure for table `carProfile`
 --
 
-DROP TABLE IF EXISTS `car`;
+DROP TABLE IF EXISTS `carProfile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `car` (
+CREATE TABLE `carProfile` (
   `idCar` int(11) NOT NULL AUTO_INCREMENT,
   `manufacturer` varchar(45) NOT NULL,
   `model` varchar(45) NOT NULL,
@@ -63,13 +63,13 @@ CREATE TABLE `car` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `car`
+-- Dumping data for table `carProfile`
 --
 
-LOCK TABLES `car` WRITE;
-/*!40000 ALTER TABLE `car` DISABLE KEYS */;
-INSERT INTO `car` VALUES (1,'honda','civic','sedan','fuel',2010,1),(2,'audi','r8','sedan','electric',2016,1),(3,'lada','priora','sedan','fuel',1980,1),(4,'testman','testmodel','wagon','fuel',1999,1);
-/*!40000 ALTER TABLE `car` ENABLE KEYS */;
+LOCK TABLES `carProfile` WRITE;
+/*!40000 ALTER TABLE `carProfile` DISABLE KEYS */;
+INSERT INTO `carProfile` VALUES (1,'honda','civic','sedan','fuel',2010,1),(2,'audi','r8','sedan','electric',2016,1),(3,'lada','priora','sedan','fuel',1980,1),(4,'testman','testmodel','wagon','fuel',1999,1);
+/*!40000 ALTER TABLE `carProfile` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `order` (
   PRIMARY KEY (`idOrder`,`user_id`,`car_id`),
   KEY `OrderToUser_idx` (`user_id`),
   KEY `OrderToCar_idx` (`car_id`),
-  CONSTRAINT `OrderToCar` FOREIGN KEY (`car_id`) REFERENCES `car` (`idCar`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `OrderToCar` FOREIGN KEY (`car_id`) REFERENCES `carProfile` (`idCar`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `OrderToUser` FOREIGN KEY (`user_id`) REFERENCES `user` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -156,7 +156,7 @@ CREATE TABLE `orderadditionalinfo` (
 
 LOCK TABLES `orderadditionalinfo` WRITE;
 /*!40000 ALTER TABLE `orderadditionalinfo` DISABLE KEYS */;
-INSERT INTO `orderadditionalinfo` VALUES (1,'light car crash',100,1);
+INSERT INTO `orderadditionalinfo` VALUES (1,'light carProfile crash',100,1);
 /*!40000 ALTER TABLE `orderadditionalinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 

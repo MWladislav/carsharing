@@ -3,16 +3,14 @@ package epam.training.finalproject.model.domain.entity;
 public class CarImage extends Persistent{
 
     private String imagePath;
-    private long carId;
+    private long carProfileId;
 
-    public CarImage(){}
-
-    public long getCarId() {
-        return carId;
+    public long getCarProfileId() {
+        return carProfileId;
     }
 
-    public void setCarId(long carId) {
-        this.carId = carId;
+    public void setCarProfileId(long carProfileId) {
+        this.carProfileId = carProfileId;
     }
 
     public String getImagePath() {

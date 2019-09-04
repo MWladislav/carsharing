@@ -8,8 +8,6 @@ public class Address extends Persistent {
     private int houseNumber;
     private int flatNumber;
 
-    public Address() {}
-
     public String getCountry() {
         return country;
     }

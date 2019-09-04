@@ -19,6 +19,7 @@ public class OrderMapper implements RowMapper<Order> {
         order.setOrderDuration(resultSet.getInt("orderDuration"));
         order.setCarId(resultSet.getInt("car_id"));
         order.setUserId(resultSet.getInt("user_id"));
+        order.setDeleted(resultSet.getInt("is_deleted")==1);
         return order;
     }
 }

@@ -1,10 +1,8 @@
 package epam.training.finalproject.model.service.impls;
 
 import epam.training.finalproject.exceptions.EntityNotFoundException;
-import epam.training.finalproject.model.dao.interfaces.OrderAdditionalInfoDao;
 import epam.training.finalproject.model.dao.interfaces.OrderDao;
 import epam.training.finalproject.model.domain.entity.Order;
-import epam.training.finalproject.model.domain.entity.OrderAdditionalInfo;
 import epam.training.finalproject.model.domain.entity.enums.OrderStatus;
 import epam.training.finalproject.model.service.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +27,11 @@ public class OrderServiceImpl implements OrderService {
             throw new EntityNotFoundException("Order for user with id "+idUser+" is not found",ex.getCause());
         }
     }
-
+//check this
     @Override
     public Order getById(Long id) {
         try {
-            return orderDao.getById(id);
+            return orderDao.getById(id).get();
         }
         catch (DataAccessException ex){
             throw new EntityNotFoundException("Order with id "+id+" is not found",ex.getCause());

@@ -2,12 +2,12 @@ package epam.training.finalproject.model.dao.interfaces;
 
 import epam.training.finalproject.model.domain.entity.PassportData;
 
+import java.util.Optional;
+
 public interface PassportDataDao extends PersistentDao<Long, PassportData> {
 
-    PassportData findByFirstName(String firstName);
+    Optional<PassportData> findByFirstNameAndLastName(String firstName,String lastName);
 
-    PassportData findByLastName(String lastName);
-
-    PassportData findByIdentificationNumber(String number);
+    Optional<PassportData> findByIdentificationNumber(String number);
 
 }

@@ -2,10 +2,12 @@ package epam.training.finalproject.model.dao.interfaces;
 
 import epam.training.finalproject.model.domain.entity.User;
 
-public interface UserDao extends PersistentDao<Long,User> {
+import java.util.Optional;
 
-    User findByUsername(String username);
+public interface UserDao extends PersistentDao<Long, User> {
 
-    boolean existsByUsername(String username);
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByEmail(String email);
 
 }

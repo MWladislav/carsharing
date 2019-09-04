@@ -6,6 +6,6 @@ public interface UserService extends PersistentService<Long,User>{
 
     User findByUsername(String username);
 
-    boolean existsByUsername(String username);
+    User findByEmail(String email);
 
 }

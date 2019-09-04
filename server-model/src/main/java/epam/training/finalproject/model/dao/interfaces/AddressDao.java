@@ -2,11 +2,16 @@ package epam.training.finalproject.model.dao.interfaces;
 
 import epam.training.finalproject.model.domain.entity.Address;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface AddressDao extends PersistentDao<Long, Address> {
 
-    Address findByCountry(String country);
+    Optional<Address> findByAllParameters(String country,String city,String street, int houseNumber, int flatNumber);
 
-    Address findByCity(String city);
+    List<Address> findByCountry(String country);
 
-    Address findByStreet(String street);
+    List<Address> findByCity(String city);
+
+    List<Address> findByStreet(String street);
 }

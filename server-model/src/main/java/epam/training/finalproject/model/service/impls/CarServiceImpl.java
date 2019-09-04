@@ -1,12 +1,11 @@
 package epam.training.finalproject.model.service.impls;
 
 
-import epam.training.finalproject.model.dao.interfaces.CarDao;
+import epam.training.finalproject.model.dao.interfaces.CarProfileDao;
 import epam.training.finalproject.model.dao.interfaces.CarImageDao;
 import epam.training.finalproject.model.dao.interfaces.OrderDao;
-import epam.training.finalproject.model.domain.entity.Car;
+import epam.training.finalproject.model.domain.entity.CarProfile;
 import epam.training.finalproject.model.domain.entity.CarImage;
-import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.service.interfaces.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,69 +16,71 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
 
     @Autowired
-    private CarDao carDao;
+    private CarProfileDao carProfileDao;
     @Autowired
     private OrderDao orderDao;
     @Autowired
     private CarImageDao carImageDao;
 
     @Override
-    public Car findByManufacturer(String manufacturer) {
+    public CarProfile findByManufacturer(String manufacturer) {
         return null;
     }
 
+    //CHANGE THIS!
     @Override
-    public List<Car> getCarsByAvailable(boolean available) {
-        return carDao.getCarsByAvailable(available);
+    public List<CarProfile> getCarsByAvailable(boolean available) {
+        return null;//carProfileDao.getCarsByAvailable(available);
     }
 
     @Override
-    public Car getById(Long id) {
+    public CarProfile getById(Long id) {
         if (id>0){
-            Car car=carDao.getById(id);
+            CarProfile carProfile = carProfileDao.getById(id).get();
             List<CarImage> images=carImageDao.findCarImageByCarId(id);
-            car.setImages(images);
-            return car;
+            carProfile.setImages(images);
+            return carProfile;
         }
         return null;
     }
 
     @Override
-    public List<Car> getAll() {
-        List<Car> cars=carDao.getAll();
-        for (Car car:cars) {
-            car.setImages(carImageDao.findCarImageByCarId(car.getId()));
+    public List<CarProfile> getAll() {
+        List<CarProfile> carProfiles = carProfileDao.getAll();
+        for (CarProfile carProfile : carProfiles) {
+            carProfile.setImages(carImageDao.findCarImageByCarId(carProfile.getId()));
         }
-        return cars;
+        return carProfiles;
     }
 
     @Override
-    public Long delete(Car car) {
-        if (car!=null && car.getId()>0)
-            return carDao.delete(car);
+    public Long delete(CarProfile carProfile) {
+        if (carProfile !=null && carProfile.getId()>0)
+            return carProfileDao.delete(carProfile);
         return 0L;
     }
 
     @Override
-    public Long update(Car car) {
-        if (car!=null && car.getId()>0 && car.getBodyType()!=null && car.getEngineType()!= null
-                && /*StringUtils.isNullOrEmpty(car.getManufacturer()) && StringUtils.isNullOrEmpty(car.getModel()) &&*/ car.getYearOfIssue()>1990)
-            return carDao.update(car);
+    public Long update(CarProfile carProfile) {
+        if (carProfile !=null && carProfile.getId()>0 && carProfile.getBodyType()!=null && carProfile.getEngineType()!= null
+                && /*StringUtils.isNullOrEmpty(carProfile.getManufacturer()) && StringUtils.isNullOrEmpty(carProfile.getModel()) &&*/ carProfile.getYearOfIssue()>1990)
+            return carProfileDao.update(carProfile);
         return 0L;
     }
 
+    //CHANGE THIS!
     @Override
-    public Long updateCarAvailable(Car car) {
-        if (car!=null && car.isAvailable())
-            return carDao.updateCarAvailable(car);
+    public Long updateCarAvailable(CarProfile carProfile) {
+//        if (carProfile !=null && carProfile.isAvailable())
+//            return carProfileDao.updateCarAvailable(carProfile);
         return null;
     }
 
     @Override
-    public Long save(Car car) {
-        if (car!=null && car.getId()>0 && car.getBodyType()!=null && car.getEngineType()!= null
-                && /*StringUtils.isNullOrEmpty(car.getManufacturer()) && StringUtils.isNullOrEmpty(car.getModel()) &&*/ car.getYearOfIssue()>1990)
-            return carDao.save(car);
+    public Long save(CarProfile carProfile) {
+        if (carProfile !=null && carProfile.getId()>0 && carProfile.getBodyType()!=null && carProfile.getEngineType()!= null
+                && /*StringUtils.isNullOrEmpty(carProfile.getManufacturer()) && StringUtils.isNullOrEmpty(carProfile.getModel()) &&*/ carProfile.getYearOfIssue()>1990)
+            return carProfileDao.save(carProfile);
         return 0L;
     }
 }

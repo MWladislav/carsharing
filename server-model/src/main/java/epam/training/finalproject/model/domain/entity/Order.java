@@ -17,8 +17,6 @@ public class Order extends Persistent {
     private List<OrderAdditionalInfo> orderAdditionalInfo;
     private long userId;
 
-    public Order() {}
-
     public long getUserId() {
         return userId;
     }
