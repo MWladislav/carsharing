@@ -24,7 +24,7 @@ public class CarImageDaoImpl implements CarImageDao {
     private final String SQL_GET_ALL = "select * from carimage";
     private final String SQL_GET_CAR_IMAGE_BY_ID = "select * from carimage where idCarImage=?";
     private final String SQL_GET_CAR_IMAGE_BY_CAR_ID = "select * from carimage where car_profile_id=?";
-    private final String SQL_DELETE_CAR_IMAGE = "delete from carimage where idCarImage = ?";
+    private final String SQL_DELETE_CAR_IMAGE = "update carimage set is_deleted=1 where idCarImage = ?";
     private final String SQL_UPDATE_CAR_IMAGE = "update carimage set path=?, car_profile_id=? where idCarImage = ?";
     private final String SQL_SAVE_CAR_IMAGE = "insert into carimage(path, car_profile_id) values (?,?)";
 

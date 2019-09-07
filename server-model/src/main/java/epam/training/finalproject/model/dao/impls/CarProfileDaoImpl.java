@@ -4,7 +4,6 @@ import epam.training.finalproject.model.dao.interfaces.CarProfileDao;
 import epam.training.finalproject.model.domain.entity.CarProfile;
 import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
-import epam.training.finalproject.model.domain.mapper.CarMapper;
 import epam.training.finalproject.model.domain.mapper.CarProfileMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,12 @@ import java.util.Optional;
 @Repository
 public class CarProfileDaoImpl implements CarProfileDao {
 
-    private static Logger LOGGER= Logger.getLogger(CarProfileDaoImpl.class);
+    private static Logger LOGGER = Logger.getLogger(CarProfileDaoImpl.class);
 
+    private final String SQL_FIND_BY_MANUFACTURER = "select * from car_profile where manufacturer=?";
+    private final String SQL_FIND_BY_MODEL = "select * from car_profile where manufacturer=?";
+    private final String SQL_FIND_BY_BODY_TYPE = "select * from car_profile where manufacturer=?";
+    private final String SQL_FIND_BY_ENGINE_TYPE = "select * from car_profile where manufacturer=?";
     private final String SQL_GET_ALL = "select * from car_profile";
     private final String SQL_GET_CAR_BY_ID = "select * from car_profile where id_car_profile=?";
     private final String SQL_DELETE_CAR = "update car_profile set is_deleted=1 where id_car_profile = ?";
@@ -39,31 +42,50 @@ public class CarProfileDaoImpl implements CarProfileDao {
 
     @Override
     public List<CarProfile> findByManufacturer(String manufacturer) {
-        return null;
+        try {
+            return jdbcTemplate.query(SQL_FIND_BY_MANUFACTURER, new CarProfileMapper(), manufacturer);
+        } catch (DataAccessException ex) {
+            LOGGER.error("Any car profiles are not found", ex.getCause());
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public List<CarProfile> findByModel(String model) {
-        return null;
+        try {
+            return jdbcTemplate.query(SQL_FIND_BY_MODEL, new CarProfileMapper(),model);
+        } catch (DataAccessException ex) {
+            LOGGER.error("Any car profiles are not found", ex.getCause());
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public List<CarProfile> findByBodyType(CarBodyType bodyType) {
-        return null;
+        try {
+            return jdbcTemplate.query(SQL_FIND_BY_BODY_TYPE, new CarProfileMapper(),bodyType);
+        } catch (DataAccessException ex) {
+            LOGGER.error("Any car profiles are not found", ex.getCause());
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public List<CarProfile> findByEngineType(CarEngineType engineType) {
-        return null;
+        try {
+            return jdbcTemplate.query(SQL_FIND_BY_ENGINE_TYPE, new CarProfileMapper(),engineType);
+        } catch (DataAccessException ex) {
+            LOGGER.error("Any car profiles are not found", ex.getCause());
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public Optional<CarProfile> getById(Long id) {
         try {
             return Optional.of(Objects.requireNonNull(jdbcTemplate.queryForObject(SQL_GET_CAR_BY_ID, new CarProfileMapper(), id)));
-        }
-        catch (DataAccessException ex){
-            LOGGER.error("CarProfile with id "+id+" is not found",ex.getCause());
+        } catch (DataAccessException ex) {
+            LOGGER.error("CarProfile with id " + id + " is not found", ex.getCause());
             return Optional.empty();
         }
     }
@@ -71,10 +93,9 @@ public class CarProfileDaoImpl implements CarProfileDao {
     @Override
     public List<CarProfile> getAll() {
         try {
-            return jdbcTemplate.query(SQL_GET_ALL,new CarProfileMapper());
-        }
-        catch (DataAccessException ex){
-            LOGGER.error("Any car profiles are not found",ex.getCause());
+            return jdbcTemplate.query(SQL_GET_ALL, new CarProfileMapper());
+        } catch (DataAccessException ex) {
+            LOGGER.error("Any car profiles are not found", ex.getCause());
             return Collections.emptyList();
         }
     }
@@ -83,9 +104,8 @@ public class CarProfileDaoImpl implements CarProfileDao {
     public Long delete(CarProfile carProfile) {
         try {
             return (long) jdbcTemplate.update(SQL_DELETE_CAR, carProfile.getId());
-        }
-        catch (DataAccessException ex){
-            LOGGER.error("CarProfile with id "+ carProfile.getId()+" has invalid credentials",ex.getCause());
+        } catch (DataAccessException ex) {
+            LOGGER.error("CarProfile with id " + carProfile.getId() + " has invalid credentials", ex.getCause());
             return -1L;
         }
     }
@@ -95,9 +115,8 @@ public class CarProfileDaoImpl implements CarProfileDao {
         try {
             return (long) jdbcTemplate.update(SQL_UPDATE_CAR, carProfile.getManufacturer(), carProfile.getModel(),
                     carProfile.getBodyType(), carProfile.getEngineType(), carProfile.getYearOfIssue(), carProfile.getId());
-        }
-        catch (DataAccessException ex){
-            LOGGER.error("CarProfile with id "+ carProfile.getId()+" has invalid credentials",ex.getCause());
+        } catch (DataAccessException ex) {
+            LOGGER.error("CarProfile with id " + carProfile.getId() + " has invalid credentials", ex.getCause());
             return -1L;
         }
     }
@@ -107,9 +126,8 @@ public class CarProfileDaoImpl implements CarProfileDao {
         try {
             return (long) jdbcTemplate.update(SQL_SAVE_CAR, carProfile.getManufacturer(), carProfile.getModel(),
                     carProfile.getBodyType(), carProfile.getEngineType(), carProfile.getYearOfIssue());
-        }
-        catch (DataAccessException ex){
-            LOGGER.error("CarProfile has invalid credentials",ex.getCause());
+        } catch (DataAccessException ex) {
+            LOGGER.error("CarProfile has invalid credentials", ex.getCause());
             return -1L;
         }
     }
