@@ -1,9 +1,6 @@
 package epam.training.finalproject.model.domain.mapper;
 
 import epam.training.finalproject.model.domain.entity.Car;
-import epam.training.finalproject.model.domain.entity.CarProfile;
-import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
-import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

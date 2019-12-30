@@ -4,11 +4,11 @@ import epam.training.finalproject.model.domain.entity.Order;
 
 import java.util.List;
 
-public interface OrderService extends PersistentService<Long, Order> {
+public interface OrderService extends AbstractEntityService<Long, Order> {
 
     Long updateOrderSetPaid(Order order);
 
     Long updateOrderStatus(Order order);
 
-    List<Order> findOrdersByUserId(long idUser);
+    List<Order> findOrdersByUserId(Long userId);
 }

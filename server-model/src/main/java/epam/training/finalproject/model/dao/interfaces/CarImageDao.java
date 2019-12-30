@@ -4,7 +4,7 @@ import epam.training.finalproject.model.domain.entity.CarImage;
 
 import java.util.List;
 
-public interface CarImageDao extends PersistentDao<Long, CarImage> {
+public interface CarImageDao extends AbstractEntityDao<Long, CarImage> {
 
-    List<CarImage> findCarImageByCarId(long carId);
+    List<CarImage> findCarImageByCarProfileId(Long carProfileId);
 }

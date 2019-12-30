@@ -4,7 +4,7 @@ import epam.training.finalproject.model.domain.entity.enums.Gender;
 
 import java.time.LocalDate;
 
-public class PassportData extends Persistent {
+public class PassportData extends AbstractEntity {
 
     private String firstName;
     private String lastName;

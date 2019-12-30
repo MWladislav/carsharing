@@ -5,7 +5,7 @@ import epam.training.finalproject.model.domain.entity.enums.OrderStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Order extends Persistent {
+public class Order extends AbstractEntity {
 
     private LocalDateTime confirmationDate;
     private LocalDateTime paymentDate;

@@ -5,9 +5,8 @@ import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface CarProfileDao extends PersistentDao<Long, CarProfile> {
+public interface CarProfileDao extends AbstractEntityDao<Long, CarProfile> {
 
     List<CarProfile> findByManufacturer(String manufacturer);
 

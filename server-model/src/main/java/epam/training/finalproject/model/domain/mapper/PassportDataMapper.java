@@ -1,6 +1,5 @@
 package epam.training.finalproject.model.domain.mapper;
 
-import epam.training.finalproject.model.domain.entity.Address;
 import epam.training.finalproject.model.domain.entity.PassportData;
 import epam.training.finalproject.model.domain.entity.enums.Gender;
 import org.springframework.jdbc.core.RowMapper;

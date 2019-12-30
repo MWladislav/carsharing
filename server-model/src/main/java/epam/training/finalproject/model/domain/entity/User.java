@@ -2,7 +2,7 @@ package epam.training.finalproject.model.domain.entity;
 
 import java.util.List;
 
-public class User extends Persistent{
+public class User extends AbstractEntity {
 
     private String username;
     private String password;

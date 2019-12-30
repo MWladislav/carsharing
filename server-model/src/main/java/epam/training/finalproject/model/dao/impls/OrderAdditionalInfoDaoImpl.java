@@ -20,13 +20,18 @@ public class OrderAdditionalInfoDaoImpl implements OrderAdditionalInfoDao {
 
     private static Logger LOGGER= Logger.getLogger(OrderAdditionalInfoDaoImpl.class);
 
-    private final String SQL_GET_ALL = "select * from orderadditionalinfo";
-    private final String SQL_FIND_ADDITIONAL_INFO_BY_PAYMENT ="select * from orderadditionalinfo where payment_for_violation=?";
-    private final String SQL_GET_ADDITIONAL_INFO_BY_ID = "select * from orderadditionalinfo where idOrderAdditionalInfo=?";
-    private final String SQL_DELETE_ADDITIONAL_INFO = "delete from orderadditionalinfo where idOrderAdditionalInfo = ?";
-    private final String SQL_UPDATE_ADDITIONAL_INFO = "update orderadditionalinfo set info_details=?, payment_for_violation=? where idOrderAdditionalInfo = ?";
-    private final String SQL_SAVE_ADDITIONAL_INFO = "insert into orderadditionalinfo(info_details,payment_for_violation) values(?,?)";
-    private final String SQL_GET_ADDITIONAL_INFO_BY_ORDER_ID = "select * from orderadditionalinfo where order_id=?";
+    private final String SQL_GET_ALL = "select * from order_additional_info";
+    private final String SQL_FIND_ADDITIONAL_INFO_BY_PAYMENT ="select * from order_additional_info where " +
+            "payment_for_violation=?";
+    private final String SQL_GET_ADDITIONAL_INFO_BY_ID = "select * from order_additional_info where " +
+            "idOrderAdditionalInfo=?";
+    private final String SQL_DELETE_ADDITIONAL_INFO = "update order_additional_info set deleted=? where " +
+            "idOrderAdditionalInfo = ?";
+    private final String SQL_UPDATE_ADDITIONAL_INFO = "update order_additional_info set info_details=?, " +
+            "payment_for_violation=? where idOrderAdditionalInfo = ?";
+    private final String SQL_SAVE_ADDITIONAL_INFO = "insert into order_additional_info(info_details,payment_for_violation)" +
+            " values(?,?)";
+    private final String SQL_GET_ADDITIONAL_INFO_BY_ORDER_ID = "select * from order_additional_info where order_id=?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -60,7 +65,8 @@ public class OrderAdditionalInfoDaoImpl implements OrderAdditionalInfoDao {
     @Override
     public Optional<OrderAdditionalInfo> getById(Long id) {
         try {
-            return Optional.of(Objects.requireNonNull(jdbcTemplate.queryForObject(SQL_GET_ADDITIONAL_INFO_BY_ID,new OrderAdditionalInfoMapper(),id)));
+            return Optional.of(Objects.requireNonNull(jdbcTemplate.queryForObject(SQL_GET_ADDITIONAL_INFO_BY_ID,
+                    new OrderAdditionalInfoMapper(),id)));
         }
         catch (DataAccessException ex){
             LOGGER.error("Order additional info with id "+id+" is not found",ex.getCause());
@@ -82,7 +88,7 @@ public class OrderAdditionalInfoDaoImpl implements OrderAdditionalInfoDao {
     @Override
     public Long delete(OrderAdditionalInfo info) {
         try {
-            return (long) jdbcTemplate.update(SQL_DELETE_ADDITIONAL_INFO,info.getId());
+            return (long) jdbcTemplate.update(SQL_DELETE_ADDITIONAL_INFO,info.isDeleted(),info.getId());
         }
         catch (DataAccessException ex){
             LOGGER.error("Order additional info with id "+info.getId()+" has invalid credentials",ex.getCause());
@@ -93,7 +99,8 @@ public class OrderAdditionalInfoDaoImpl implements OrderAdditionalInfoDao {
     @Override
     public Long update(OrderAdditionalInfo info) {
         try {
-            return (long) jdbcTemplate.update(SQL_UPDATE_ADDITIONAL_INFO,info.getInfoDetails(),info.getPaymentForViolation(),info.getId());
+            return (long) jdbcTemplate.update(SQL_UPDATE_ADDITIONAL_INFO,info.getInfoDetails(),
+                    info.getPaymentForViolation(),info.getId());
         }
         catch (DataAccessException ex){
             LOGGER.error("Order additional info with id "+info.getId()+" has invalid credentials",ex.getCause());

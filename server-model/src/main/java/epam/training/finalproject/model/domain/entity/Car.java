@@ -2,7 +2,7 @@ package epam.training.finalproject.model.domain.entity;
 
 import java.util.List;
 
-public class Car extends Persistent {
+public class Car extends AbstractEntity {
 
     private List<Order> orders;
     private boolean available;

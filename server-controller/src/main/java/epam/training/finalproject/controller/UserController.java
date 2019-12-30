@@ -2,9 +2,9 @@ package epam.training.finalproject.controller;
 
 import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.domain.entity.User;
-import epam.training.finalproject.security.UserPrincipal;
-import epam.training.finalproject.model.service.interfaces.CarService;
+import epam.training.finalproject.model.service.interfaces.CarProfileService;
 import epam.training.finalproject.model.service.interfaces.UserService;
+import epam.training.finalproject.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private CarService carService;
+    private CarProfileService carProfileService;
 
     @GetMapping(value = "/users/id{id}")
     public User userPage(@PathVariable Long id, @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception{

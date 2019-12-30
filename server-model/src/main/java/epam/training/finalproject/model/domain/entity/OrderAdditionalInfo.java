@@ -1,6 +1,6 @@
 package epam.training.finalproject.model.domain.entity;
 
-public class OrderAdditionalInfo extends Persistent{
+public class OrderAdditionalInfo extends AbstractEntity {
 
     private String infoDetails;
     private int paymentForViolation;

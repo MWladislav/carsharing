@@ -5,7 +5,7 @@ import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 
 import java.util.List;
 
-public class CarProfile extends Persistent {
+public class CarProfile extends AbstractEntity {
 
     private String manufacturer;
     private String model;
@@ -14,6 +14,19 @@ public class CarProfile extends Persistent {
     private int yearOfIssue;
     private List<CarImage> images;
     private List<Car> cars;
+    private long popularity;
+
+    public long getPopularity() {
+        return popularity;
+    }
+
+    public long calcPopularity() {
+        return cars.stream().mapToLong(car -> car.getOrders().size()).sum();
+    }
+
+    public void setPopularity(long popularity) {
+        this.popularity = popularity;
+    }
 
     public List<Car> getCars() {
         return cars;

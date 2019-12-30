@@ -1,7 +1,6 @@
 package epam.training.finalproject.model.domain.mapper;
 
 import epam.training.finalproject.model.domain.entity.User;
-import epam.training.finalproject.model.domain.entity.enums.RoleName;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

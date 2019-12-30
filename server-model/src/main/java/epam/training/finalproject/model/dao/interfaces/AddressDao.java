@@ -5,7 +5,7 @@ import epam.training.finalproject.model.domain.entity.Address;
 import java.util.List;
 import java.util.Optional;
 
-public interface AddressDao extends PersistentDao<Long, Address> {
+public interface AddressDao extends AbstractEntityDao<Long, Address> {
 
     Optional<Address> findByAllParameters(String country,String city,String street, int houseNumber, int flatNumber);
 

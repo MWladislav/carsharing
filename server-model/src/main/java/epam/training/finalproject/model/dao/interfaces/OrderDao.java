@@ -4,7 +4,7 @@ import epam.training.finalproject.model.domain.entity.Order;
 
 import java.util.List;
 
-public interface OrderDao extends PersistentDao<Long,Order> {
+public interface OrderDao extends AbstractEntityDao<Long,Order> {
 
     List<Order> findOrdersByUserId(long idUser);
 

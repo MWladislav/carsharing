@@ -22,8 +22,8 @@ public class RoleDaoImpl implements RoleDao {
 
     private static Logger LOGGER= Logger.getLogger(RoleDaoImpl.class);
 
-    private final String SQL_FIND_BY_ROLE_NAME="select * from role where role_name=?";
-    private final String SQL_FIND_ROLES_BY_USER_ID="select * from role r right join user_role ur on r.idRole=ur.role_id where ur.user_id = ?";
+    private final String SQL_FIND_BY_ROLE_NAME="select * from roles where role_name=?";
+    private final String SQL_FIND_ROLES_BY_USER_ID="select * from roles r right join user_role ur on r.idRole=ur.role_id where ur.user_id = ?";
     private final String SQL_SAVE_USER_ROLE="insert into user_role(user_id,role_id) values(?,?)";
 
     private final JdbcTemplate jdbcTemplate;
@@ -68,9 +68,9 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Long save(Long userId, Role role) {
+    public Long save(Long userId, Long roleId) {
         try {
-            return (long)jdbcTemplate.update(SQL_SAVE_USER_ROLE,userId,role.getId());
+            return (long)jdbcTemplate.update(SQL_SAVE_USER_ROLE,userId,roleId);
         }
         catch (DataAccessException ex){
             LOGGER.error("Role has invalid credentials",ex.getCause());

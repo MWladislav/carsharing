@@ -12,5 +12,5 @@ public interface RoleDao {
 
     List<Role> findRolesByUserId(Long id);
 
-    Long save(Long userId, Role role);
+    Long save(Long userId, Long roleId);
 }

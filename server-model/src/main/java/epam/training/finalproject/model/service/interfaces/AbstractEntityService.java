@@ -1,10 +1,10 @@
 package epam.training.finalproject.model.service.interfaces;
 
-import epam.training.finalproject.model.domain.entity.Persistent;
+import epam.training.finalproject.model.domain.entity.AbstractEntity;
 
 import java.util.List;
 
-public interface PersistentService<ID, T extends Persistent> {
+public interface AbstractEntityService<ID, T extends AbstractEntity> {
 
     T getById(ID id);
 

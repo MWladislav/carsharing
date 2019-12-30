@@ -1,17 +1,17 @@
 package epam.training.finalproject.model.domain.entity;
 
-public abstract class Persistent {
+public abstract class AbstractEntity {
 
     private long id;
     private boolean deleted;
 
-    public Persistent(){}
+    public AbstractEntity(){}
 
-    Persistent(long id) {
+    AbstractEntity(long id) {
         this.id = id;
     }
 
-    public Persistent(long id, boolean deleted) {
+    public AbstractEntity(long id, boolean deleted) {
         this.id = id;
         this.deleted = deleted;
     }

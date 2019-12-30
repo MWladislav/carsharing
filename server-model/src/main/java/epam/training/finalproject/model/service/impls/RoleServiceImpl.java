@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Deprecated
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
@@ -20,7 +21,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findByRoleName(RoleName roleName) {
         try {
-            return roleDao.findByRoleName(roleName);
+            return roleDao.findByRoleName(roleName).get();
         }
         catch (DataAccessException ex){
             throw new EntityNotFoundException("Role with role name "+roleName+" is not found",ex.getCause());

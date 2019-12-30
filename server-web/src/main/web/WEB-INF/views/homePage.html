@@ -27,11 +27,11 @@
 <div class="container" id="body">
     <h1>Find your car to drive!</h1>
     <div class="card-columns">
-            <div class="card carInfo-card " th:each="car : ${cars}">
-                <a href="carPage.html" th:href="@{'/car/'+${car.id}}">
-                    <img th:src="${car.images[0].imagePath}" class="card-img-top" alt="Card image cap">
+            <div class="card carInfo-card">
+                <a href="/carPage">
+                    <img src="img" class="card-img-top" alt="Card image cap">
                     <div class="card-body">
-                        <h4 class="card-title" th:text="${car.manufacturer}+' '+${car.model}"></h4>
+                        <h4 class="card-title"></h4>
                         <!--<p class="card-body"></p>-->
                         <button type="button" class="btn">Check this car</button>
                     </div>

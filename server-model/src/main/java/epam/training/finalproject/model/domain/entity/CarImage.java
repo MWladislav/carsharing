@@ -1,6 +1,6 @@
 package epam.training.finalproject.model.domain.entity;
 
-public class CarImage extends Persistent{
+public class CarImage extends AbstractEntity {
 
     private String imagePath;
     private long carProfileId;

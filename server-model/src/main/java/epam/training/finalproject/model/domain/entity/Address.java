@@ -1,6 +1,6 @@
 package epam.training.finalproject.model.domain.entity;
 
-public class Address extends Persistent {
+public class Address extends AbstractEntity {
 
     private String country;
     private String city;

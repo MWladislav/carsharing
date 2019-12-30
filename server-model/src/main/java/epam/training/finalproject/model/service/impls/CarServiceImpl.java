@@ -1,86 +1,104 @@
 package epam.training.finalproject.model.service.impls;
 
-
-import epam.training.finalproject.model.dao.interfaces.CarProfileDao;
-import epam.training.finalproject.model.dao.interfaces.CarImageDao;
-import epam.training.finalproject.model.dao.interfaces.OrderDao;
-import epam.training.finalproject.model.domain.entity.CarProfile;
-import epam.training.finalproject.model.domain.entity.CarImage;
+import epam.training.finalproject.exceptions.EntityNotFoundException;
+import epam.training.finalproject.exceptions.OperationException;
+import epam.training.finalproject.model.dao.interfaces.CarDao;
+import epam.training.finalproject.model.domain.entity.Car;
 import epam.training.finalproject.model.service.interfaces.CarService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-@Service
 public class CarServiceImpl implements CarService {
 
-    @Autowired
-    private CarProfileDao carProfileDao;
-    @Autowired
-    private OrderDao orderDao;
-    @Autowired
-    private CarImageDao carImageDao;
+    private static final Logger LOGGER = Logger.getLogger(CarServiceImpl.class);
 
-    @Override
-    public CarProfile findByManufacturer(String manufacturer) {
-        return null;
-    }
+    @Autowired
+    private CarDao carDao;
 
-    //CHANGE THIS!
+    //TODO add regex to reg number
     @Override
-    public List<CarProfile> getCarsByAvailable(boolean available) {
-        return null;//carProfileDao.getCarsByAvailable(available);
-    }
-
-    @Override
-    public CarProfile getById(Long id) {
-        if (id>0){
-            CarProfile carProfile = carProfileDao.getById(id).get();
-            List<CarImage> images=carImageDao.findCarImageByCarId(id);
-            carProfile.setImages(images);
-            return carProfile;
+    public Car findCarByRegistrationNumber(String number) {
+        if (number != null && !StringUtils.isEmpty(number)) {
+            Car car = carDao.findByRegistrationNumber(number).orElseThrow(() -> {
+                LOGGER.debug("Car is null!");
+                throw new EntityNotFoundException("Car with registration number" + number + " is not found");
+            });
+            if (!car.isAvailable()) {
+                LOGGER.debug("Car is not available!");
+                throw new EntityNotFoundException("Car with registration number" + number + " is not found");
+            }
+            return car;
         }
-        return null;
+        LOGGER.debug("Registration number is invalid!");
+        throw new IllegalArgumentException("Registration number is invalid");
     }
 
     @Override
-    public List<CarProfile> getAll() {
-        List<CarProfile> carProfiles = carProfileDao.getAll();
-        for (CarProfile carProfile : carProfiles) {
-            carProfile.setImages(carImageDao.findCarImageByCarId(carProfile.getId()));
+    public Long updateCarAvailable(Car car) {
+        if (car != null){
+            Long result = carDao.updateCarAvailable(car);
+            if (result == -1L){
+                LOGGER.debug("Car credentials is invalid!");
+                throw new OperationException("Car with id " + car.getId() + " has invalid credentials");
+            }
+            return result;
         }
-        return carProfiles;
+        LOGGER.debug("Car is null!");
+        throw new IllegalArgumentException("Car is invalid");
     }
 
     @Override
-    public Long delete(CarProfile carProfile) {
-        if (carProfile !=null && carProfile.getId()>0)
-            return carProfileDao.delete(carProfile);
-        return 0L;
+    public List<Car> getCarsByAvailable(boolean available) {
+        List<Car> cars = carDao.getCarsByAvailable(available);
+        if (cars.isEmpty()){
+            LOGGER.debug("Cars is empty!");
+            throw new EntityNotFoundException("Cars is not found");
+        }
+        return cars;
     }
 
     @Override
-    public Long update(CarProfile carProfile) {
-        if (carProfile !=null && carProfile.getId()>0 && carProfile.getBodyType()!=null && carProfile.getEngineType()!= null
-                && /*StringUtils.isNullOrEmpty(carProfile.getManufacturer()) && StringUtils.isNullOrEmpty(carProfile.getModel()) &&*/ carProfile.getYearOfIssue()>1990)
-            return carProfileDao.update(carProfile);
-        return 0L;
+    public Car getById(Long id) {
+        if (id > 0){
+            Car car = carDao.getById(id).orElseThrow(() -> {
+                LOGGER.debug("Car is null!");
+                throw new EntityNotFoundException("Car with id" + id + " is not found");
+            });
+            if (!car.isAvailable()){
+                LOGGER.debug("Car is not available!");
+                throw new EntityNotFoundException("Car with id" + id + " is not found");
+            }
+            return car;
+        }
+        LOGGER.debug("Car id is invalid!");
+        throw new IllegalArgumentException("Car id is invalid");
     }
 
-    //CHANGE THIS!
     @Override
-    public Long updateCarAvailable(CarProfile carProfile) {
-//        if (carProfile !=null && carProfile.isAvailable())
-//            return carProfileDao.updateCarAvailable(carProfile);
+    public List<Car> getAll() {
+        List<Car> cars = carDao.getAll();
+        if (cars.isEmpty()){
+            LOGGER.debug("Cars is empty!");
+            throw new EntityNotFoundException("Cars is not found");
+        }
+        return cars;
+    }
+    //TODO finish this and go to carProfileService
+    @Override
+    public Long delete(Car car) {
         return null;
     }
 
     @Override
-    public Long save(CarProfile carProfile) {
-        if (carProfile !=null && carProfile.getId()>0 && carProfile.getBodyType()!=null && carProfile.getEngineType()!= null
-                && /*StringUtils.isNullOrEmpty(carProfile.getManufacturer()) && StringUtils.isNullOrEmpty(carProfile.getModel()) &&*/ carProfile.getYearOfIssue()>1990)
-            return carProfileDao.save(carProfile);
-        return 0L;
+    public Long update(Car car) {
+        return null;
+    }
+
+    @Override
+    public Long save(Car car) {
+        return null;
     }
 }

@@ -4,7 +4,7 @@ import epam.training.finalproject.model.domain.entity.OrderAdditionalInfo;
 
 import java.util.List;
 
-public interface OrderAdditionalInfoDao extends PersistentDao<Long, OrderAdditionalInfo> {
+public interface OrderAdditionalInfoDao extends AbstractEntityDao<Long, OrderAdditionalInfo> {
 
     List<OrderAdditionalInfo> findInfoByPayment(int price);
 
