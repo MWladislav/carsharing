@@ -90,11 +90,7 @@ public class CarProfileServiceImpl implements CarProfileService {
 
     @Override
     public List<CarProfile> getAll() {
-        List<CarProfile> carProfiles = carProfileDao.getAll();
-        for (CarProfile carProfile : carProfiles) {
-            carProfile.setImages(carImageDao.findCarImagesByCarProfileId(carProfile.getId()));
-        }
-        return carProfiles;
+        return getCarProfilesWithMainImage(carProfileDao.getAll());
     }
 
     @Override

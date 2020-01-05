@@ -1,6 +1,6 @@
 package epam.training.finalproject.model.service.impls;
 
-import epam.training.finalproject.exceptions.EntityNotFoundException;
+import epam.training.finalproject.exception.EntityNotFoundException;
 import epam.training.finalproject.model.dao.interfaces.RoleDao;
 import epam.training.finalproject.model.domain.entity.Role;
 import epam.training.finalproject.model.domain.entity.enums.RoleName;

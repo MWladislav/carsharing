@@ -2,38 +2,32 @@ package epam.training.finalproject.web.controller;
 
 import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.domain.entity.User;
-import epam.training.finalproject.model.service.interfaces.CarProfileService;
+import epam.training.finalproject.model.service.interfaces.OrderService;
 import epam.training.finalproject.model.service.interfaces.UserService;
-import epam.training.finalproject.web.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@RestController(value = "/api/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
     @Autowired
-    private CarProfileService carProfileService;
+    private OrderService orderService;
 
-    @GetMapping(value = "/users/id{id}")
-    public User userPage(@PathVariable Long id, @AuthenticationPrincipal UserPrincipal userPrincipal) throws Exception{
-        User userFromRequest=userService.getById(id);
-        if (userFromRequest==null){
-
-        }
-
-        return userService.getById(userPrincipal.getId());
+    @GetMapping(value = "/profile")
+    public ResponseEntity<User> getUserProfile(@RequestParam Long id){
+        return ResponseEntity.ok(userService.getById(id));
     }
 
-    @GetMapping(value = "/userPage/orders")
-    public List<Order> getUserOrders(@AuthenticationPrincipal UserPrincipal userPrincipal, Model model){
-        return userService.getById(userPrincipal.getId()).getOrders();
+    @GetMapping("/orders")
+    public ResponseEntity<List<Order>> getUserOrders(@RequestParam Long userId){
+        return ResponseEntity.ok(orderService.findOrdersByUserId(userId));
     }
+
 }

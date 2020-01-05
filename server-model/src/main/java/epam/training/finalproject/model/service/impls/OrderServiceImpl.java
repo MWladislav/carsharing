@@ -1,7 +1,7 @@
 package epam.training.finalproject.model.service.impls;
 
-import epam.training.finalproject.exceptions.EntityNotFoundException;
-import epam.training.finalproject.exceptions.OperationException;
+import epam.training.finalproject.exception.EntityNotFoundException;
+import epam.training.finalproject.exception.OperationException;
 import epam.training.finalproject.model.dao.interfaces.OrderDao;
 import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.domain.entity.enums.OrderStatus;
@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrdersByUserId(Long userId) {
         if (userId > 0) {
             List<Order> orders = orderDao.findOrdersByUserId(userId);
-            if (orders.isEmpty()){
+            if (orders.isEmpty()) {
                 LOGGER.debug("Orders is empty!");
                 throw new EntityNotFoundException("Any orders are not found for user with id " + userId);
             }
@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAll() {
         List<Order> orders = orderDao.getAll();
-        if (orders.isEmpty()){
+        if (orders.isEmpty()) {
             LOGGER.debug("Orders is empty!");
             throw new EntityNotFoundException("Any orders are not found");
         }
@@ -90,10 +90,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Long save(Order order) {
-        if (order != null){
+        if (order != null) {
             order.setStatus(OrderStatus.CREATED);
             Long result = orderDao.save(order);
-            if (result == -1L){
+            if (result == -1L) {
                 LOGGER.debug("Invalid order credentials!");
                 throw new OperationException("Order with id " + order.getId() + " has invalid credentials");
             }

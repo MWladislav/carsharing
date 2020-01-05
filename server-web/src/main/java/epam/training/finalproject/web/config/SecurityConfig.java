@@ -68,10 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js")
                     .permitAll()
                 .antMatchers("/homePage").permitAll()
-                .antMatchers("/car*").permitAll()
-                .antMatchers("/userPage**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/admin**").hasRole("ADMIN")
-                .antMatchers("/login","/registration").anonymous();
+                .antMatchers("/api/car*").permitAll()
+                .antMatchers("/api/users**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/admin**").hasRole("ADMIN")
+                .antMatchers("/api/login","/api/registration").anonymous();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

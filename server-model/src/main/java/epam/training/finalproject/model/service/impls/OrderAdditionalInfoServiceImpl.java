@@ -1,7 +1,7 @@
 package epam.training.finalproject.model.service.impls;
 
-import epam.training.finalproject.exceptions.EntityNotFoundException;
-import epam.training.finalproject.exceptions.OperationException;
+import epam.training.finalproject.exception.EntityNotFoundException;
+import epam.training.finalproject.exception.OperationException;
 import epam.training.finalproject.model.dao.interfaces.OrderAdditionalInfoDao;
 import epam.training.finalproject.model.domain.entity.OrderAdditionalInfo;
 import epam.training.finalproject.model.service.interfaces.OrderAdditionalInfoService;

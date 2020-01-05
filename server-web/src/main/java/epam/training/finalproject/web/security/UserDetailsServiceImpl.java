@@ -1,6 +1,6 @@
 package epam.training.finalproject.web.security;
 
-import epam.training.finalproject.exceptions.EntityNotFoundException;
+import epam.training.finalproject.exception.EntityNotFoundException;
 import epam.training.finalproject.model.domain.entity.User;
 import epam.training.finalproject.model.service.interfaces.RoleService;
 import epam.training.finalproject.model.service.interfaces.UserService;

@@ -1,7 +1,7 @@
 package epam.training.finalproject.model.service.impls;
 
-import epam.training.finalproject.exceptions.EntityNotFoundException;
-import epam.training.finalproject.exceptions.OperationException;
+import epam.training.finalproject.exception.EntityNotFoundException;
+import epam.training.finalproject.exception.OperationException;
 import epam.training.finalproject.model.dao.interfaces.CarDao;
 import epam.training.finalproject.model.domain.entity.Car;
 import epam.training.finalproject.model.service.interfaces.CarService;

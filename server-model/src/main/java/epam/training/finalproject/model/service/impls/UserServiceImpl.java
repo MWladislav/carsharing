@@ -1,9 +1,9 @@
 package epam.training.finalproject.model.service.impls;
 
 
-import epam.training.finalproject.exceptions.DuplicateEntityCredentialsException;
-import epam.training.finalproject.exceptions.EntityNotFoundException;
-import epam.training.finalproject.exceptions.OperationException;
+import epam.training.finalproject.exception.DuplicateEntityCredentialsException;
+import epam.training.finalproject.exception.EntityNotFoundException;
+import epam.training.finalproject.exception.OperationException;
 import epam.training.finalproject.model.dao.interfaces.UserDao;
 import epam.training.finalproject.model.domain.entity.User;
 import epam.training.finalproject.model.service.interfaces.UserService;

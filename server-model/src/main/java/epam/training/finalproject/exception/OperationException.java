@@ -1,4 +1,4 @@
-package epam.training.finalproject.exceptions;
+package epam.training.finalproject.exception;
 
 public class OperationException extends RuntimeException {
     public OperationException(Throwable cause) {
