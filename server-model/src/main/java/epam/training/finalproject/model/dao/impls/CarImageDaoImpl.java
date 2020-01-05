@@ -23,10 +23,11 @@ public class CarImageDaoImpl implements CarImageDao {
 
     private final String SQL_GET_ALL = "select * from car_images";
     private final String SQL_GET_CAR_IMAGE_BY_ID = "select * from car_images where idCarImage=?";
-    private final String SQL_GET_CAR_IMAGE_BY_CAR_PROFILE_ID = "select * from car_images where car_profile_id=?";
+    private final String SQL_GET_MAIN_CAR_IMAGE_BY_CAR_PROFILE_ID = "select * from car_images where image_url like '%main%' and idCarImage=?";
+    private final String SQL_GET_CAR_IMAGES_BY_CAR_PROFILE_ID = "select * from car_images where car_profile_id=?";
     private final String SQL_DELETE_CAR_IMAGE = "update car_images set deleted=? where idCarImage = ?";
-    private final String SQL_UPDATE_CAR_IMAGE = "update car_images set url=?, car_profile_id=? where idCarImage = ?";
-    private final String SQL_SAVE_CAR_IMAGE = "insert into car_images(url, car_profile_id) values (?,?)";
+    private final String SQL_UPDATE_CAR_IMAGE = "update car_images set image_url=?, car_profile_id=? where idCarImage = ?";
+    private final String SQL_SAVE_CAR_IMAGE = "insert into car_images(image_url, car_profile_id) values (?,?)";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -41,18 +42,29 @@ public class CarImageDaoImpl implements CarImageDao {
         try {
             return Optional.of(Objects.requireNonNull(jdbcTemplate.queryForObject(SQL_GET_CAR_IMAGE_BY_ID, new CarImageMapper(), id)));
         } catch (DataAccessException ex) {
-            LOGGER.error("CarProfile image with id " + id + " is not found", ex.getCause());
+            LOGGER.debug("CarProfile image with id " + id + " is not found", ex.getCause());
             return Optional.empty();
         }
     }
 
     @Override
-    public List<CarImage> findCarImageByCarProfileId(Long carProfileId) {
+    public List<CarImage> findCarImagesByCarProfileId(Long carProfileId) {
         try {
-            return jdbcTemplate.query(SQL_GET_CAR_IMAGE_BY_CAR_PROFILE_ID, new CarImageMapper(), carProfileId);
+            return jdbcTemplate.query(SQL_GET_CAR_IMAGES_BY_CAR_PROFILE_ID, new CarImageMapper(), carProfileId);
         } catch (DataAccessException ex) {
-            LOGGER.error("Any car images with car id " + carProfileId + " are not found", ex.getCause());
+            LOGGER.debug("Any car images with car profile id " + carProfileId + " are not found", ex.getCause());
             return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public Optional<CarImage> getMainCarImageByCarProfileId(Long carProfileId) {
+        try {
+            return Optional.of(Objects.requireNonNull(jdbcTemplate.queryForObject
+                    (SQL_GET_MAIN_CAR_IMAGE_BY_CAR_PROFILE_ID, new CarImageMapper(), carProfileId)));
+        } catch (DataAccessException ex) {
+            LOGGER.debug("Main car image with car profile id " + carProfileId + " is not found", ex.getCause());
+            return Optional.empty();
         }
     }
 
@@ -61,7 +73,7 @@ public class CarImageDaoImpl implements CarImageDao {
         try {
             return jdbcTemplate.query(SQL_GET_ALL, new CarImageMapper());
         } catch (DataAccessException ex) {
-            LOGGER.error("Any car images are not found", ex.getCause());
+            LOGGER.debug("Any car images are not found", ex.getCause());
             return Collections.emptyList();
         }
     }
@@ -71,7 +83,7 @@ public class CarImageDaoImpl implements CarImageDao {
         try {
             return (long) jdbcTemplate.update(SQL_DELETE_CAR_IMAGE,carImage.isDeleted(), carImage.getId());
         } catch (DataAccessException ex) {
-            LOGGER.error("CarProfile image with id " + carImage.getId() + " has invalid credentials", ex.getCause());
+            LOGGER.debug("CarProfile image with id " + carImage.getId() + " has invalid credentials", ex.getCause());
             return -1L;
         }
     }
@@ -81,7 +93,7 @@ public class CarImageDaoImpl implements CarImageDao {
         try {
             return (long) jdbcTemplate.update(SQL_UPDATE_CAR_IMAGE, carImage.getImagePath(), carImage.getCarProfileId(), carImage.getId());
         } catch (DataAccessException ex) {
-            LOGGER.error("CarProfile image with id " + carImage.getId() + " has invalid credentials", ex.getCause());
+            LOGGER.debug("CarProfile image with id " + carImage.getId() + " has invalid credentials", ex.getCause());
             return -1L;
         }
     }
@@ -91,7 +103,7 @@ public class CarImageDaoImpl implements CarImageDao {
         try {
             return (long) jdbcTemplate.update(SQL_SAVE_CAR_IMAGE, carImage.getImagePath(), carImage.getCarProfileId());
         } catch (DataAccessException ex) {
-            LOGGER.error("CarProfile image has invalid credentials", ex.getCause());
+            LOGGER.debug("CarProfile image has invalid credentials", ex.getCause());
             return -1L;
         }
 

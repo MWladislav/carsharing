@@ -12,9 +12,18 @@ public class CarProfile extends AbstractEntity {
     private CarBodyType bodyType;
     private CarEngineType engineType;
     private int yearOfIssue;
+    private CarImage mainImage;
     private List<CarImage> images;
     private List<Car> cars;
     private long popularity;
+
+    public CarImage getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(CarImage mainImage) {
+        this.mainImage = mainImage;
+    }
 
     public long getPopularity() {
         return popularity;

@@ -1,4 +1,4 @@
-package epam.training.finalproject.dto;
+package epam.training.finalproject.web.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

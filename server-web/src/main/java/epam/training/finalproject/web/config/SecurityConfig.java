@@ -1,7 +1,7 @@
 package epam.training.finalproject.web.config;
 
-import epam.training.finalproject.jwt.JwtAuthenticationEntryPoint;
-import epam.training.finalproject.jwt.JwtAuthenticationFilter;
+import epam.training.finalproject.web.jwt.JwtAuthenticationEntryPoint;
+import epam.training.finalproject.web.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

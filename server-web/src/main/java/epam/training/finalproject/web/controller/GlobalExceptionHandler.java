@@ -1,4 +1,4 @@
-package epam.training.finalproject.controller;
+package epam.training.finalproject.web.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;

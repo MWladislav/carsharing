@@ -138,7 +138,6 @@ public class UserServiceImpl implements UserService {
         }
         LOGGER.debug("update operation: user is null or doesn't exist!");
         throw new IllegalArgumentException("User is invalid");
-
     }
 
 

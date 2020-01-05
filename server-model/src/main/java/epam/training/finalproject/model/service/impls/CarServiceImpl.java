@@ -86,19 +86,52 @@ public class CarServiceImpl implements CarService {
         }
         return cars;
     }
-    //TODO finish this and go to carProfileService
+
     @Override
     public Long delete(Car car) {
-        return null;
+        if (car != null) {
+            car.setDeleted(true);
+            car.setAvailable(false);
+
+            Long result = carDao.delete(car);
+            if (result == -1L){
+                LOGGER.debug("Invalid car credentials!");
+                throw new OperationException("Car with id " + car.getId() + " and registration number " + car.getRegistrationNumber() +
+                        " has invalid credentials");
+            }
+            return result;
+        }
+        LOGGER.debug("delete operation: such car doesn't exist!");
+        throw new IllegalArgumentException("Car doesn't exist");
     }
 
     @Override
     public Long update(Car car) {
-        return null;
+        if (car != null) {
+            Long result = carDao.update(car);
+            if (result == -1L){
+                LOGGER.debug("Invalid car credentials!");
+                throw new OperationException("Car with id " + car.getId() + " and registration number " + car.getRegistrationNumber() +
+                        " has invalid credentials");
+            }
+            return result;
+        }
+        LOGGER.debug("update operation: such car doesn't exist!");
+        throw new IllegalArgumentException("Car doesn't exist");
     }
 
     @Override
     public Long save(Car car) {
-        return null;
+        if (car != null) {
+            Long result = carDao.save(car);
+            if (result == -1L){
+                LOGGER.debug("Invalid car credentials!");
+                throw new OperationException("Car with id " + car.getId() + " and registration number " + car.getRegistrationNumber() +
+                        " has invalid credentials");
+            }
+            return result;
+        }
+        LOGGER.debug("save operation: such car doesn't exist!");
+        throw new IllegalArgumentException("Car doesn't exist");
     }
 }

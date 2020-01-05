@@ -1,4 +1,4 @@
-package epam.training.finalproject.controller;
+package epam.training.finalproject.web.controller;
 
 import epam.training.finalproject.model.domain.entity.CarProfile;
 import epam.training.finalproject.model.service.interfaces.CarProfileService;

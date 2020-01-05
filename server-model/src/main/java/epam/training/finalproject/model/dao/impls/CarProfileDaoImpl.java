@@ -26,6 +26,7 @@ public class CarProfileDaoImpl implements CarProfileDao {
     private final String SQL_FIND_BY_MODEL = "select * from car_profiles where manufacturer=?";
     private final String SQL_FIND_BY_BODY_TYPE = "select * from car_profiles where manufacturer=?";
     private final String SQL_FIND_BY_ENGINE_TYPE = "select * from car_profiles where manufacturer=?";
+    private final String SQL_FIND_BY_YEAR_OF_ISSUE = "select * from car_profiles where year_of_issue=?";
     private final String SQL_GET_ALL = "select * from car_profiles";
     private final String SQL_GET_CAR_PROFILE_BY_ID = "select * from car_profiles where id_car_profile=?";
     private final String SQL_DELETE_CAR_PROFILE = "update car_profiles set deleted=? where id_car_profile = ?";
@@ -76,6 +77,16 @@ public class CarProfileDaoImpl implements CarProfileDao {
     public List<CarProfile> findByEngineType(CarEngineType engineType) {
         try {
             return jdbcTemplate.query(SQL_FIND_BY_ENGINE_TYPE, new CarProfileMapper(), engineType);
+        } catch (DataAccessException ex) {
+            LOGGER.error("Any car profiles are not found", ex.getCause());
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<CarProfile> findByYearOfIssue(int yearOfIssue) {
+        try {
+            return jdbcTemplate.query(SQL_FIND_BY_YEAR_OF_ISSUE, new CarProfileMapper(), yearOfIssue);
         } catch (DataAccessException ex) {
             LOGGER.error("Any car profiles are not found", ex.getCause());
             return Collections.emptyList();

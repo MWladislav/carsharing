@@ -16,4 +16,5 @@ public interface CarProfileDao extends AbstractEntityDao<Long, CarProfile> {
 
     List<CarProfile> findByEngineType(CarEngineType engineType);
 
+    List<CarProfile> findByYearOfIssue(int yearOfIssue);
 }

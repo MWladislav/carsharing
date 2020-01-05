@@ -4,13 +4,17 @@ import epam.training.finalproject.model.domain.entity.CarProfile;
 import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 
+import java.util.List;
+
 public interface CarProfileService extends AbstractEntityService<Long, CarProfile> {
 
-    CarProfile findByManufacturer(String manufacturer);
+    List<CarProfile> findByManufacturer(String manufacturer);
 
-    CarProfile findByModel(String model);
+    List<CarProfile> findByModel(String model);
 
-    CarProfile findByBodyType(CarBodyType bodyType);
+    List<CarProfile> findByBodyType(CarBodyType bodyType);
 
-    CarProfile findByEngineType(CarEngineType engineType);
+    List<CarProfile> findByEngineType(CarEngineType engineType);
+
+    List<CarProfile> findByYearOfIssue(int yearOfIssue);
 }

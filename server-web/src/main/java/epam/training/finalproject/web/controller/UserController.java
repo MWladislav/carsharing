@@ -1,10 +1,10 @@
-package epam.training.finalproject.controller;
+package epam.training.finalproject.web.controller;
 
 import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.domain.entity.User;
 import epam.training.finalproject.model.service.interfaces.CarProfileService;
 import epam.training.finalproject.model.service.interfaces.UserService;
-import epam.training.finalproject.security.UserPrincipal;
+import epam.training.finalproject.web.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
