@@ -23,8 +23,8 @@ public class RoleDaoImpl implements RoleDao {
     private static Logger LOGGER= Logger.getLogger(RoleDaoImpl.class);
 
     private final String SQL_FIND_BY_ROLE_NAME="select * from roles where role_name=?";
-    private final String SQL_FIND_ROLES_BY_USER_ID="select * from roles r right join user_role ur on r.idRole=ur.role_id where ur.user_id = ?";
-    private final String SQL_SAVE_USER_ROLE="insert into user_role(user_id,role_id) values(?,?)";
+    private final String SQL_FIND_ROLES_BY_USER_ID="select * from roles r right join user_roles ur on r.idRole=ur.role_id where ur.user_id = ?";
+    private final String SQL_SAVE_USER_ROLE="insert into user_roles(user_id,role_id) values(?,?)";
 
     private final JdbcTemplate jdbcTemplate;
 
