@@ -122,7 +122,7 @@ public class CarProfileServiceImpl implements CarProfileService {
         List<Long> profilesWithoutImage = new ArrayList<>();
         carProfiles.forEach(carProfile -> {
             Optional<CarImage> mainCarProfileImage = carImageDao.getMainCarImageByCarProfileId(carProfile.getId());
-            mainCarProfileImage.ifPresentOrElse(carImage -> carProfile.setMainImage(carImage),
+            mainCarProfileImage.ifPresentOrElse(carProfile::setMainImage,
                     () -> {
                         LOGGER.debug("Car image with car profile id " + carProfile.getId() + " is not found");
                         profilesWithoutImage.add(carProfile.getId());
