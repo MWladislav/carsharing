@@ -2,7 +2,7 @@ package epam.training.finalproject.model.domain.entity;
 
 public class CarImage extends AbstractEntity {
 
-    private String imagePath;
+    private String imageUrl;
     private long carProfileId;
 
     public long getCarProfileId() {
@@ -13,11 +13,11 @@ public class CarImage extends AbstractEntity {
         this.carProfileId = carProfileId;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

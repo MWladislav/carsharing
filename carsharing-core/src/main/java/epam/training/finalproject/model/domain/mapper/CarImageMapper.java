@@ -12,9 +12,9 @@ public class CarImageMapper implements RowMapper<CarImage> {
     public CarImage mapRow(ResultSet resultSet, int i) throws SQLException {
         CarImage carImage = new CarImage();
         carImage.setId(resultSet.getInt("idCarImage"));
-        carImage.setImagePath(resultSet.getString("path"));
-        carImage.setCarProfileId(resultSet.getInt("car_id"));
-        carImage.setDeleted(resultSet.getInt("is_deleted")==1);
+        carImage.setImageUrl(resultSet.getString("image_url"));
+        carImage.setCarProfileId(resultSet.getInt("car_profile_id"));
+        carImage.setDeleted(resultSet.getInt("deleted") == 1);
         return carImage;
     }
 }

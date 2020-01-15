@@ -18,7 +18,7 @@ public class PassportDataMapper implements RowMapper<PassportData> {
         passportData.setPassportNumber(resultSet.getString("passport_number"));
         passportData.setIdentificationNumber(resultSet.getString("identification_number"));
         passportData.setGender(Gender.valueOf(resultSet.getString("gender").toUpperCase()));
-        passportData.setDeleted(resultSet.getInt("is_deleted")==1);
+        passportData.setDeleted(resultSet.getInt("deleted") == 1);
         return passportData;
     }
 }

@@ -9,8 +9,8 @@ import epam.training.finalproject.model.service.interfaces.RoleService;
 import epam.training.finalproject.model.service.interfaces.UserService;
 import epam.training.finalproject.web.dto.ApiResponse;
 import epam.training.finalproject.web.dto.JwtAuthenticationResponse;
-import epam.training.finalproject.web.dto.LoginRequest;
-import epam.training.finalproject.web.dto.SignUpRequest;
+import epam.training.finalproject.web.dto.SignInDTO;
+import epam.training.finalproject.web.dto.SignUpDTO;
 import epam.training.finalproject.web.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,7 +36,7 @@ public class AuthenticationService {
     @Autowired
     private RoleService roleService;
 
-    public JwtAuthenticationResponse authenticate(LoginRequest request){
+    public JwtAuthenticationResponse authenticate(SignInDTO request){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsernameOrEmail(),
@@ -47,7 +47,7 @@ public class AuthenticationService {
         return new JwtAuthenticationResponse(tokenProvider.generateToken(authentication));
     }
 
-    public ApiResponse signUp(SignUpRequest request){
+    public ApiResponse signUp(SignUpDTO request){
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());

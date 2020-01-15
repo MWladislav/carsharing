@@ -90,7 +90,7 @@ public class CarProfileServiceImpl implements CarProfileService {
 
     @Override
     public List<CarProfile> getAll() {
-        return getCarProfilesWithMainImage(carProfileDao.getAll());
+         return getCarProfilesWithMainImage(carProfileDao.getAll());
     }
 
     @Override
@@ -122,14 +122,14 @@ public class CarProfileServiceImpl implements CarProfileService {
         List<Long> profilesWithoutImage = new ArrayList<>();
         carProfiles.forEach(carProfile -> {
             Optional<CarImage> mainCarProfileImage = carImageDao.getMainCarImageByCarProfileId(carProfile.getId());
-            mainCarProfileImage.ifPresentOrElse(carProfile::setMainImage,
+            mainCarProfileImage.ifPresentOrElse(carImage -> carProfile.setMainImage(carImage),
                     () -> {
                         LOGGER.debug("Car image with car profile id " + carProfile.getId() + " is not found");
                         profilesWithoutImage.add(carProfile.getId());
                     });
         });
         profilesWithoutImage.forEach(id -> carProfiles.remove(
-                carProfiles.indexOf(carProfiles.stream().filter(carProfile -> carProfile.getId() != id).findFirst().get())));
+                carProfiles.indexOf(carProfiles.stream().filter(carProfile -> carProfile.getId() == id).findFirst().get())));
         return carProfiles;
     }
 }

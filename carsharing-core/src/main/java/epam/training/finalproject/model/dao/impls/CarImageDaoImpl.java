@@ -91,7 +91,7 @@ public class CarImageDaoImpl implements CarImageDao {
     @Override
     public Long update(CarImage carImage) {
         try {
-            return (long) jdbcTemplate.update(SQL_UPDATE_CAR_IMAGE, carImage.getImagePath(), carImage.getCarProfileId(), carImage.getId());
+            return (long) jdbcTemplate.update(SQL_UPDATE_CAR_IMAGE, carImage.getImageUrl(), carImage.getCarProfileId(), carImage.getId());
         } catch (DataAccessException ex) {
             LOGGER.debug("CarProfile image with id " + carImage.getId() + " has invalid credentials", ex.getCause());
             return -1L;
@@ -101,7 +101,7 @@ public class CarImageDaoImpl implements CarImageDao {
     @Override
     public Long save(CarImage carImage) {
         try {
-            return (long) jdbcTemplate.update(SQL_SAVE_CAR_IMAGE, carImage.getImagePath(), carImage.getCarProfileId());
+            return (long) jdbcTemplate.update(SQL_SAVE_CAR_IMAGE, carImage.getImageUrl(), carImage.getCarProfileId());
         } catch (DataAccessException ex) {
             LOGGER.debug("CarProfile image has invalid credentials", ex.getCause());
             return -1L;

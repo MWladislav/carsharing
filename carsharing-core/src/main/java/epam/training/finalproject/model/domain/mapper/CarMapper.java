@@ -12,7 +12,7 @@ public class CarMapper implements RowMapper<Car> {
         carProfile.setId(resultSet.getInt("idCar"));
         carProfile.setRegistrationNumber(resultSet.getString("registration_number"));
         carProfile.setAvailable(resultSet.getBoolean("available"));
-        carProfile.setDeleted(resultSet.getInt("is_deleted")==1);
+        carProfile.setDeleted(resultSet.getInt("deleted") == 1);
         return carProfile;
     }
 }

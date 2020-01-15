@@ -2,11 +2,11 @@ package epam.training.finalproject.web.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class LoginRequest {
-    @NotBlank
+public class SignInDTO {
+//    @NotBlank
     private String usernameOrEmail;
 
-    @NotBlank
+//    @NotBlank
     private String password;
 
     public String getUsernameOrEmail() {

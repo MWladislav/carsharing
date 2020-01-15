@@ -16,7 +16,7 @@ public class AddressMapper implements RowMapper<Address> {
         address.setStreet(resultSet.getString("street"));
         address.setHouseNumber(resultSet.getInt("house_number"));
         address.setFlatNumber(resultSet.getInt("flat_number"));
-        address.setDeleted(resultSet.getInt("is_deleted")==1);
+        address.setDeleted(resultSet.getInt("deleted") == 1);
         return address;
     }
 }

@@ -12,14 +12,14 @@ public class OrderMapper implements RowMapper<Order> {
     public Order mapRow(ResultSet resultSet, int i) throws SQLException {
         Order order = new Order();
         order.setId(resultSet.getInt("idOrder"));
-        order.setPrice(resultSet.getInt("price"));
-        order.setStatus(OrderStatus.valueOf(resultSet.getString("order_status")));
         order.setConfirmationDate(resultSet.getTimestamp("confirmation_date").toLocalDateTime());
         order.setPaymentDate(resultSet.getTimestamp("payment_date").toLocalDateTime());
         order.setOrderDuration(resultSet.getInt("orderDuration"));
-        order.setCarId(resultSet.getInt("car_id"));
+        order.setStatus(OrderStatus.valueOf(resultSet.getString("order_status")));
+        order.setPrice(resultSet.getInt("price"));
         order.setUserId(resultSet.getInt("user_id"));
-        order.setDeleted(resultSet.getInt("is_deleted")==1);
+        order.setCarId(resultSet.getInt("car_id"));
+        order.setDeleted(resultSet.getInt("deleted") == 1);
         return order;
     }
 }

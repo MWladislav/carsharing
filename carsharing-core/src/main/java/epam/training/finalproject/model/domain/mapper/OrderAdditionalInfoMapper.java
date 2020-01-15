@@ -14,7 +14,7 @@ public class OrderAdditionalInfoMapper implements RowMapper<OrderAdditionalInfo>
         orderAdditionalInfo.setId(resultSet.getInt("idOrderAdditionalInfo"));
         orderAdditionalInfo.setInfoDetails(resultSet.getString("info_details"));
         orderAdditionalInfo.setPaymentForViolation(resultSet.getInt("payment_for_violation"));
-        orderAdditionalInfo.setDeleted(resultSet.getInt("is_deleted")==1);
+        orderAdditionalInfo.setDeleted(resultSet.getInt("deleted") == 1);
         return orderAdditionalInfo;
     }
 }
