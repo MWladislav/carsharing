@@ -1,13 +1,18 @@
 package epam.training.finalproject.web.jwt;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import epam.training.finalproject.web.security.UserPrincipal;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.JacksonSerializer;
+import io.jsonwebtoken.security.Keys;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
@@ -19,9 +24,10 @@ public class JwtTokenProvider {
     @Autowired
     private Environment env;
 
-    private final String jwtSecret="JWTSuperSecretKey";//env.getProperty("app.jwtSecret");
+    private final SecretKey jwtSecret= Keys.secretKeyFor(SignatureAlgorithm.HS512);//env.getProperty("app.jwtSecret");
     private final int jwtExpirationInMs=604800000;//Integer.parseInt(env.getRequiredProperty("app.jwtExpirationInMs"));
 
+    @JsonSerialize
     public String generateToken(Authentication authentication) {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
@@ -30,10 +36,11 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
+                .serializeToJsonWith(new JacksonSerializer(new JsonMapper()))
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(jwtSecret)
                 .compact();
     }
 
