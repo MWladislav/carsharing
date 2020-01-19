@@ -25,9 +25,9 @@ public class UserDaoImpl implements UserDao {
     private static Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
 
     private final String SQL_GET_ALL = "select * from users";
-    private final String SQL_FIND_BY_USERNAME = "select u.idUser, u.username, u.password, u.email, u.is_active from users u where u.username=?";
-    private final String SQL_FIND_BY_EMAIL = "select u.idUser, u.username, u.password, u.email, u.is_active from users u where u.email=?";
-    private final String SQL_GET_USER_BY_ID = "select u.idUser, u.username, u.password, u.email, u.is_active from users u where u.idUser=?";
+    private final String SQL_FIND_BY_USERNAME = "select u.idUser, u.username, u.password, u.email, u.is_active, u.deleted from users u where u.username=?";
+    private final String SQL_FIND_BY_EMAIL = "select u.idUser, u.username, u.password, u.email, u.is_active, u.deleted from users u where u.email=?";
+    private final String SQL_GET_USER_BY_ID = "select u.idUser, u.username, u.password, u.email, u.is_active, u.deleted from users u where u.idUser=?";
     private final String SQL_DELETE_USER = "update users set deleted = ?, is_active = ? where idUser = ?";
     private final String SQL_UPDATE_USER = "update users set username = ?, password = ?,email = ? where idUser = ?";
     private final String SQL_BAN_USER = "update users set is_active = ? where idUser = ?";

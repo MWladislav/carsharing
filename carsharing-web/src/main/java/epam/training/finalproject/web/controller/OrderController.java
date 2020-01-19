@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController(value = "api/order")
+@RestController
+@RequestMapping("api/order")
 public class OrderController {
 
     @Autowired

@@ -34,7 +34,7 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findRolesByUserId(Long id) {
         if (id > 0) {
             List<Role> roles = roleDao.findRolesByUserId(id);
-            if (!roles.isEmpty()) {
+            if (roles.isEmpty()) {
                 LOGGER.debug("User roles list is empty");
                 throw new EntityNotFoundException("Any role for user with id " + id + " is not found");
             }

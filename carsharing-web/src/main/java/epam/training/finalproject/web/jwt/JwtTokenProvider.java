@@ -14,7 +14,7 @@ import java.util.Date;
 //@PropertySource(value = {"classpath:jwt.properties"})
 public class JwtTokenProvider {
 
-    private static final Logger logger = Logger.getLogger(JwtTokenProvider.class);
+    private static final Logger LOGGER = Logger.getLogger(JwtTokenProvider.class);
 
     @Autowired
     private Environment env;
@@ -51,15 +51,16 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException ex) {
-            logger.error("Invalid JWT signature");
+            LOGGER.error("Invalid JWT signature");
         } catch (MalformedJwtException ex) {
-            logger.error("Invalid JWT token");
+            LOGGER.error("Invalid JWT token");
         } catch (ExpiredJwtException ex) {
-            logger.error("Expired JWT token");
+            LOGGER.error("Expired JWT token");
         } catch (UnsupportedJwtException ex) {
-            logger.error("Unsupported JWT token");
-        } catch (IllegalArgumentException ex) {
-            logger.error("JWT claims string is empty.");
+            LOGGER.error("Unsupported JWT token");
+        } catch (Exception ex) {
+            LOGGER.debug(ex.getMessage());
+            LOGGER.error("JWT claims string is empty.");
         }
         return false;
     }
