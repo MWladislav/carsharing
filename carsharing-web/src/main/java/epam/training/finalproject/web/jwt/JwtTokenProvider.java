@@ -1,11 +1,10 @@
 package epam.training.finalproject.web.jwt;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import epam.training.finalproject.web.security.UserPrincipal;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.crypto.MacProvider;
 import io.jsonwebtoken.io.JacksonSerializer;
-import io.jsonwebtoken.security.Keys;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -24,10 +23,9 @@ public class JwtTokenProvider {
     @Autowired
     private Environment env;
 
-    private final SecretKey jwtSecret= Keys.secretKeyFor(SignatureAlgorithm.HS512);//env.getProperty("app.jwtSecret");
-    private final int jwtExpirationInMs=604800000;//Integer.parseInt(env.getRequiredProperty("app.jwtExpirationInMs"));
+    private static final SecretKey jwtSecret = MacProvider.generateKey(SignatureAlgorithm.HS512);//env.getProperty("app.jwtSecret");
+    private final int jwtExpirationInMs = 604800000;//Integer.parseInt(env.getRequiredProperty("app.jwtExpirationInMs"));
 
-    @JsonSerialize
     public String generateToken(Authentication authentication) {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
