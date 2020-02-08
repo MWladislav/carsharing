@@ -1,25 +1,16 @@
 package epam.training.finalproject.web.controller;
 
-import org.apache.log4j.Logger;
-import org.springframework.dao.DataAccessException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
-
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static Logger LOGGER = Logger.getLogger(GlobalExceptionHandler.class);
-
-    @ExceptionHandler(DataAccessException.class)
-    public ModelAndView dataAccessExceptionHandle(HttpServletRequest req, Exception e){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("errorPage");
-        modelAndView.addObject("errorMsg",e.getMessage());
-        LOGGER.info("DataAccessException Occured: URL="+req.getRequestURL());
-        LOGGER.error(e.getMessage(),e.getCause());
-        return modelAndView;
+    @ExceptionHandler({BadCredentialsException.class, IllegalArgumentException.class})
+    public ResponseEntity<String> handleBadCredentialsException(){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This request has a bad credentials");
     }
 }

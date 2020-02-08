@@ -43,12 +43,12 @@ VALUES (1, 'admin', '$2a$11$MJtj2BFcyPyJJUMO0fYjoeGF1RgaD1uBTCSYyIDkfRrFVIjX329b
        (3, 'testuser2', '$2a$11$BDG.Bo/VKwrT38AsZdL3Zu4pNhAgnO7BSVQq6ppBwiNWYdKIfvVWy', 'test1@mail.ru', 1, 3,0);
 INSERT INTO carsharing.orders (idOrder, confirmation_date, payment_date, orderDuration, order_status, price, user_id,
                                car_id, deleted)
-VALUES (1, '2000-12-31 21:00:00', '2000-12-31 21:00:00', 6, 'complete', 200, 1, 3, 0),
-       (2, '2005-05-04 21:00:00', '2005-05-04 21:00:00', 2, 'complete', 123, 1, 2, 0),
-       (3, '2011-09-07 21:00:00', '2011-09-07 21:00:00', 2, 'complete', 123, 2, 1, 0),
-       (4, '2019-09-07 21:23:05', '2019-09-07 22:02:00', 4, 'complete', 100, 3, 5, 0),
-       (5, '2019-10-10 18:55:33', '2019-10-10 19:00:00', 10, 'complete', 300, 3, 6, 0),
-       (6, '2019-11-29 12:12:31', '2019-10-29 15:38:00', 6, 'complete', 190, 2, 7, 0);
+VALUES (1, '2000-12-31 21:00:00', '2000-12-31 21:00:00', 6, 'finished', 200, 1, 3, 0),
+       (2, '2005-05-04 21:00:00', '2005-05-04 21:00:00', 2, 'finished', 123, 1, 2, 0),
+       (3, '2011-09-07 21:00:00', '2011-09-07 21:00:00', 2, 'finished', 123, 2, 1, 0),
+       (4, '2019-09-07 21:23:05', '2019-09-07 22:02:00', 4, 'finished', 100, 3, 5, 0),
+       (5, '2019-10-10 18:55:33', '2019-10-10 19:00:00', 10, 'finished', 300, 3, 6, 0),
+       (6, '2019-11-29 12:12:31', '2019-10-29 15:38:00', 6, 'finished', 190, 2, 7, 0);
 INSERT INTO carsharing.order_additional_info (idOrderAdditionalInfo, info_details, payment_for_violation, order_id,
                                               deleted)
 VALUES (1, 'light carProfile crash', 100, 1, 0);

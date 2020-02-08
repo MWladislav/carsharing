@@ -15,7 +15,7 @@ public class OrderMapper implements RowMapper<Order> {
         order.setConfirmationDate(resultSet.getTimestamp("confirmation_date").toLocalDateTime());
         order.setPaymentDate(resultSet.getTimestamp("payment_date").toLocalDateTime());
         order.setOrderDuration(resultSet.getInt("orderDuration"));
-        order.setStatus(OrderStatus.valueOf(resultSet.getString("order_status")));
+        order.setStatus(OrderStatus.valueOf(resultSet.getString("order_status").toUpperCase()));
         order.setPrice(resultSet.getInt("price"));
         order.setUserId(resultSet.getInt("user_id"));
         order.setCarId(resultSet.getInt("car_id"));

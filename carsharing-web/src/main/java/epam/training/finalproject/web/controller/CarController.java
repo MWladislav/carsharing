@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/cars")
 public class CarController {
 
     @Autowired
     private CarProfileService carProfileService;
 
-    @RequestMapping(value = "/car/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public CarProfile getCar(@PathVariable(value = "id") Long id){
         return carProfileService.getById(id);
     }

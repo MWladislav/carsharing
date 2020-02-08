@@ -4,14 +4,17 @@ import epam.training.finalproject.exception.EntityNotFoundException;
 import epam.training.finalproject.model.domain.entity.User;
 import epam.training.finalproject.model.service.interfaces.RoleService;
 import epam.training.finalproject.model.service.interfaces.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    private static Logger LOGGER = Logger.getLogger(UserDetailsServiceImpl.class);
 
     @Autowired
     private UserService userService;
@@ -26,16 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return new UserPrincipal(user);
         }
         catch (EntityNotFoundException ex){
-            throw new UsernameNotFoundException(s,ex.getCause());
+            LOGGER.debug(ex.getMessage());
+            throw new BadCredentialsException(ex.getMessage());
         }
-    }
-
-    public UserDetails loadUserById(Long id){
-        final User user = userService.getById(id);
-        if (user == null) {
-            throw new EntityNotFoundException("There is no user with such id");
-        }
-        user.setRoles(roleService.findRolesByUserId(id));
-        return new UserPrincipal(user);
     }
 }

@@ -20,10 +20,8 @@ public class OrderDaoImpl implements OrderDao {
 
     private static Logger LOGGER= Logger.getLogger(Order.class);
 
-    private final String SQL_FIND_ORDERS_BY_USER_ID = "select o.idOrder, o.confirmation_date, o.payment_date, " +
-            "o.orderDuration, o.order_status, o.price, o.car_id, o.user_id from orders o where o.user_id=?";
-    private final String SQL_FIND_ORDERS_BY_CAR_ID = "select o.idOrder, o.confirmation_date, o.payment_date, " +
-            "o.orderDuration, o.order_status, o.price, o.user_id from orders o where o.car_id=?";
+    private final String SQL_FIND_ORDERS_BY_USER_ID = "select * from orders o where o.user_id=?";
+    private final String SQL_FIND_ORDERS_BY_CAR_ID = "select * from orders o where o.car_id=?";
     private final String SQL_GET_ALL = "select * from orders";
     private final String SQL_GET_ORDER_BY_ID = "select * from orders where idOrder=?";
     private final String SQL_DELETE_ORDER = "update orders set deleted=? where idOrder = ?";
