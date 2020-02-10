@@ -6,10 +6,8 @@ import epam.training.finalproject.model.service.interfaces.OrderService;
 import epam.training.finalproject.model.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,4 +30,25 @@ public class UserController {
         return ResponseEntity.ok(orderService.findOrdersByUserId(userId));
     }
 
+    @Secured(value = "ROLE_ADMIN")
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAll());
+    }
+
+    @PostMapping("/updateProfile")
+    public ResponseEntity<Long> updateUserProfile(@RequestBody User user){
+        return ResponseEntity.ok(userService.update(user));
+    }
+
+    @DeleteMapping("/deleteProfile")
+    public ResponseEntity<Long> deleteUserProfile(@RequestBody User user){
+        return ResponseEntity.ok(userService.delete(user));
+    }
+
+    @Secured(value = "ROLE_ADMIN")
+    @PostMapping("/banUser")
+    public ResponseEntity<Long> banUser(@RequestBody User user){
+        return ResponseEntity.ok(userService.banUser(user));
+    }
 }

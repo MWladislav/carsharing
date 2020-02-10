@@ -67,10 +67,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                     .permitAll()
-                .antMatchers("/homePage").permitAll()
-                .antMatchers("/api/cars/**").permitAll()
+                .antMatchers("/api/cars/profile","/api/cars/all","/api/cars/searchCars").permitAll()
+                .antMatchers("api/orders/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/api/users/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/auth/**").anonymous()
                     .and()
                 .csrf().disable();

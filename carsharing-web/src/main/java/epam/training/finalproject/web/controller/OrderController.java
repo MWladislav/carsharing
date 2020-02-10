@@ -4,6 +4,7 @@ import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.service.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.updateOrderSetPaid(order));
     }
 
+    @Secured(value = "ROLE_ADMIN")
     @DeleteMapping("/remove")
     public ResponseEntity<Long> removeOrder(@RequestBody Order order) {
         return ResponseEntity.ok(orderService.delete(order));
