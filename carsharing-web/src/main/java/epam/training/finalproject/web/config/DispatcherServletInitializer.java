@@ -6,7 +6,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{SecurityConfig.class, JDBCConfig.class};
+        return new Class<?>[]{SecurityConfig.class, PersistenceConfig.class};
     }
 
     @Override
@@ -16,6 +16,6 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{MVCConfig.class};
+        return new Class<?>[]{/*MVCConfig.class*/};
     }
 }

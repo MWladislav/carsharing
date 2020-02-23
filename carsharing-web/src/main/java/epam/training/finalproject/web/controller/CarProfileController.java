@@ -1,5 +1,9 @@
 package epam.training.finalproject.web.controller;
 
+import epam.training.finalproject.model.dao.interfaces.CarProfileRepository;
+import epam.training.finalproject.model.dao.specification.CarProfileSpecification;
+import epam.training.finalproject.model.dao.specification.SearchCriteria;
+import epam.training.finalproject.model.dao.specification.SpecificationBuilder;
 import epam.training.finalproject.model.domain.entity.CarProfile;
 import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
@@ -16,6 +20,14 @@ public class CarProfileController {
 
     @Autowired
     private CarProfileService carProfileService;
+    @Autowired
+    private CarProfileRepository repository;
+
+    @GetMapping(value = "/searchCars")
+    public List<CarProfile> searchCars(@RequestBody List<SearchCriteria> params){
+        return repository.findAll(new SpecificationBuilder<CarProfile>(params)
+                .build(CarProfileSpecification::new));
+    }
 
     @GetMapping(value = "/profile")
     public CarProfile getCar(@RequestParam(value = "id") Long id){

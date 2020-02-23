@@ -10,10 +10,10 @@ import java.sql.SQLException;
 public class PassportDataMapper implements RowMapper<PassportData> {
     public PassportData mapRow(ResultSet resultSet, int i) throws SQLException {
         PassportData passportData = new PassportData();
-        passportData.setId(resultSet.getInt("idPassportData"));
+        passportData.setId(resultSet.getInt("id"));
         passportData.setFirstName(resultSet.getString("first_name"));
         passportData.setLastName(resultSet.getString("last_name"));
-        passportData.setPatronomyc(resultSet.getString("patronymic"));
+        passportData.setPatronymic(resultSet.getString("patronymic"));
         passportData.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
         passportData.setPassportNumber(resultSet.getString("passport_number"));
         passportData.setIdentificationNumber(resultSet.getString("identification_number"));

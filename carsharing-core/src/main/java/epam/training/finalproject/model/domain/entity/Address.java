@@ -1,12 +1,20 @@
 package epam.training.finalproject.model.domain.entity;
 
-public class Address extends AbstractEntity {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "addresses")
+public class Address extends AbstractEntity {
+    @Column(name = "country", length = 30, nullable = false)
     private String country;
+    @Column(name = "city", length = 30, nullable = false)
     private String city;
+    @Column(name = "street", length = 30, nullable = false)
     private String street;
+    @Column(name = "house_number", nullable = false)
     private int houseNumber;
-    private int flatNumber;
 
     public String getCountry() {
         return country;
@@ -38,13 +46,5 @@ public class Address extends AbstractEntity {
 
     public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
-    }
-
-    public int getFlatNumber() {
-        return flatNumber;
-    }
-
-    public void setFlatNumber(int flatNumber) {
-        this.flatNumber = flatNumber;
     }
 }

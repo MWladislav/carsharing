@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class CarMapper implements RowMapper<Car> {
     public Car mapRow(ResultSet resultSet, int i) throws SQLException {
         Car carProfile = new Car();
-        carProfile.setId(resultSet.getInt("idCar"));
+        carProfile.setId(resultSet.getInt("id"));
         carProfile.setRegistrationNumber(resultSet.getString("registration_number"));
         carProfile.setAvailable(resultSet.getBoolean("available"));
         carProfile.setDeleted(resultSet.getInt("deleted") == 1);

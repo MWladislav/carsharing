@@ -112,7 +112,7 @@ public class CarDaoImpl implements CarDao {
     public Long save(Car car) {
         try {
             return (long) jdbcTemplate.update(SQL_SAVE_CAR, car.isAvailable(), car.getRegistrationNumber(),
-                    car.getCarProfileId());
+                    car.getCarProfile().getId());
         } catch (DataAccessException ex) {
             LOGGER.error("CarProfile has invalid credentials", ex.getCause());
             return -1L;

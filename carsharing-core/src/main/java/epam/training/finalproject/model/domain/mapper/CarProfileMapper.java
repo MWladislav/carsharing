@@ -12,7 +12,7 @@ public class CarProfileMapper implements RowMapper<CarProfile> {
     @Override
     public CarProfile mapRow(ResultSet resultSet, int i) throws SQLException {
         CarProfile carProfile = new CarProfile();
-        carProfile.setId(resultSet.getInt("id_car_profile"));
+        carProfile.setId(resultSet.getInt("id"));
         carProfile.setManufacturer(resultSet.getString("manufacturer"));
         carProfile.setModel(resultSet.getString("model"));
         carProfile.setBodyType(CarBodyType.valueOf(resultSet.getString("body_type").toUpperCase()));

@@ -11,7 +11,7 @@ public class OrderAdditionalInfoMapper implements RowMapper<OrderAdditionalInfo>
     @Override
     public OrderAdditionalInfo mapRow(ResultSet resultSet, int i) throws SQLException {
         OrderAdditionalInfo orderAdditionalInfo = new OrderAdditionalInfo();
-        orderAdditionalInfo.setId(resultSet.getInt("idOrderAdditionalInfo"));
+        orderAdditionalInfo.setId(resultSet.getInt("id"));
         orderAdditionalInfo.setInfoDetails(resultSet.getString("info_details"));
         orderAdditionalInfo.setPaymentForViolation(resultSet.getInt("payment_for_violation"));
         orderAdditionalInfo.setDeleted(resultSet.getInt("deleted") == 1);

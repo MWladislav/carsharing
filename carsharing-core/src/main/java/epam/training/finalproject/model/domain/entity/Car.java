@@ -1,20 +1,28 @@
 package epam.training.finalproject.model.domain.entity;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "cars",  uniqueConstraints = { @UniqueConstraint(columnNames = { "registration_number" }) })
 public class Car extends AbstractEntity {
 
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "car")
     private List<Order> orders;
+    @Column(name = "available", nullable = false)
     private boolean available;
+    @Column(name = "registration_number", length = 10, unique = true, nullable = false)
     private String registrationNumber;
-    private Long carProfileId;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_profile_id", nullable = false)
+    private CarProfile carProfile;
 
-    public Long getCarProfileId() {
-        return carProfileId;
+    public CarProfile getCarProfile() {
+        return carProfile;
     }
 
-    public void setCarProfileId(Long carProfileId) {
-        this.carProfileId = carProfileId;
+    public void setCarProfile(CarProfile carProfile) {
+        this.carProfile = carProfile;
     }
 
     public String getRegistrationNumber() {

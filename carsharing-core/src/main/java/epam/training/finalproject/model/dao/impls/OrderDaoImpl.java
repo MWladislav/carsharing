@@ -24,7 +24,7 @@ public class OrderDaoImpl implements OrderDao {
     private final String SQL_FIND_ORDERS_BY_CAR_ID = "select * from orders o where o.car_id=?";
     private final String SQL_GET_ALL = "select * from orders";
     private final String SQL_GET_ORDER_BY_ID = "select * from orders where idOrder=?";
-    private final String SQL_DELETE_ORDER = "update orders set deleted=? where idOrder = ?";
+    private final String SQL_DELETE_ORDER = "update orders set deleted=? where id = ?";
     private final String SQL_UPDATE_ORDER_SET_CONFIRMED = "update orders set confirmation_date=?, order_status=?, " +
             "price=? where idOrder = ?";
     private final String SQL_UPDATE_ORDER_STATUS = "update orders set order_status=? where idOrder = ?";
@@ -132,7 +132,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Long save(Order order) {
         try {
-            return (long) jdbcTemplate.update(SQL_SAVE_ORDER, order.getUserId(),order.getCarId(),
+            return (long) jdbcTemplate.update(SQL_SAVE_ORDER, order.getUser().getId(),order.getCar().getId(),
                     order.getOrderDuration(),order.getStatus());
         }
         catch (DataAccessException ex){

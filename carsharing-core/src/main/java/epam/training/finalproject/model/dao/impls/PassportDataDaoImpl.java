@@ -100,7 +100,7 @@ public class PassportDataDaoImpl implements PassportDataDao {
     public Long update(PassportData passportData) {
         try {
             return (long) jdbcTemplate.update(SQL_UPDATE_PASSPORT_DATA,passportData.getFirstName(),passportData.getLastName(),
-                    passportData.getPatronomyc(),passportData.getBirthDate(),passportData.getPassportNumber(),
+                    passportData.getPatronymic(),passportData.getBirthDate(),passportData.getPassportNumber(),
                     passportData.getIdentificationNumber(),passportData.getGender(),passportData.getId());
         }
         catch (DataAccessException ex){
@@ -113,7 +113,7 @@ public class PassportDataDaoImpl implements PassportDataDao {
     public Long save(PassportData passportData) {
         try {
             return (long) jdbcTemplate.update(SQL_SAVE_PASSPORT_DATA,passportData.getFirstName(),passportData.getLastName(),
-                    passportData.getPatronomyc(),passportData.getBirthDate(),passportData.getPassportNumber(),
+                    passportData.getPatronymic(),passportData.getBirthDate(),passportData.getPassportNumber(),
                     passportData.getIdentificationNumber(),passportData.getGender());
         }
         catch (DataAccessException ex){

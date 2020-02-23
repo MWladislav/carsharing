@@ -1,8 +1,15 @@
 package epam.training.finalproject.model.domain.entity;
 
-public class OrderAdditionalInfo extends AbstractEntity {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "order_additional_info")
+public class OrderAdditionalInfo extends AbstractEntity {
+    @Column(name = "info_details", nullable = false)
     private String infoDetails;
+    @Column(name = "payment_for_violation", nullable = false)
     private int paymentForViolation;
 
     public String getInfoDetails() {

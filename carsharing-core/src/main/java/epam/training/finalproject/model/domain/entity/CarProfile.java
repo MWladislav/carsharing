@@ -3,19 +3,30 @@ package epam.training.finalproject.model.domain.entity;
 import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "car_profiles")
 public class CarProfile extends AbstractEntity {
 
+    @Column(name = "manufacturer", length = 30, nullable = false)
     private String manufacturer;
+    @Column(name = "model", length = 30, nullable = false)
     private String model;
+    @Column(name = "body_type", length = 30, nullable = false)
     private CarBodyType bodyType;
+    @Column(name = "engine_type", length = 30, nullable = false)
     private CarEngineType engineType;
+    @Column(name = "year_of_issue", length = 30, nullable = false)
     private int yearOfIssue;
-    private CarImage mainImage;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "car_profile_id")
     private List<CarImage> images;
+    @Transient
+    private CarImage mainImage;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "carProfile")
     private List<Car> cars;
-    private long popularity;
 
     public CarImage getMainImage() {
         return mainImage;
@@ -23,18 +34,6 @@ public class CarProfile extends AbstractEntity {
 
     public void setMainImage(CarImage mainImage) {
         this.mainImage = mainImage;
-    }
-
-    public long getPopularity() {
-        return popularity;
-    }
-
-    public long calcPopularity() {
-        return cars.stream().mapToLong(car -> car.getOrders().size()).sum();
-    }
-
-    public void setPopularity(long popularity) {
-        this.popularity = popularity;
     }
 
     public List<Car> getCars() {
@@ -50,6 +49,8 @@ public class CarProfile extends AbstractEntity {
     }
 
     public void setImages(List<CarImage> images) {
+        this.setMainImage(images.stream().filter(CarImage::isMainImage).findFirst().orElse(null));
+        images.remove(this.mainImage);
         this.images = images;
     }
 

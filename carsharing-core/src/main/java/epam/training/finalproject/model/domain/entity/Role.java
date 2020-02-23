@@ -2,9 +2,15 @@ package epam.training.finalproject.model.domain.entity;
 
 import epam.training.finalproject.model.domain.entity.enums.RoleName;
 
-public class Role {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "roles")
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "role_name")
     private RoleName name;
 
     public Role() {

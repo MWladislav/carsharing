@@ -1,15 +1,28 @@
 package epam.training.finalproject.model.domain.entity;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "username", "email" }) })
 public class User extends AbstractEntity {
-
+    @Column(name = "username", length = 30, unique = true, nullable = false)
     private String username;
+    @Column(name = "password", length = 150, nullable = false)
     private String password;
+    @Column(name = "email", length = 30, unique = true, nullable = false)
     private String email;
+    @Column(name = "is_active", nullable = false)
     private boolean active;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "passport_data_id")
     private PassportData passportData;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "user")
     private List<Order> orders;
 
     public List<Order> getOrders() {

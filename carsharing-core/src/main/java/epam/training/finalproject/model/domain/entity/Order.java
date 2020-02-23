@@ -2,27 +2,48 @@ package epam.training.finalproject.model.domain.entity;
 
 import epam.training.finalproject.model.domain.entity.enums.OrderStatus;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
+@Table(name = "orders")
 public class Order extends AbstractEntity {
-
+    @Column(name = "confirmation_date", nullable = false)
     private LocalDateTime confirmationDate;
+    @Column(name = "payment_date", nullable = false)
     private LocalDateTime paymentDate;
     //order expiration date in minutes
+    @Column(name = "order_duration", nullable = false)
     private int orderDuration;
+    @Column(name = "order_status", nullable = false)
     private OrderStatus status;
+    @Column(name = "price", nullable = false)
     private int price;
-    private long carId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    private Car car;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "order_id")
     private List<OrderAdditionalInfo> orderAdditionalInfo;
-    private long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public long getUserId() {
-        return userId;
+    public Car getCar() {
+        return car;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getPaymentDate() {
@@ -71,13 +92,5 @@ public class Order extends AbstractEntity {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public long getCarId() {
-        return carId;
-    }
-
-    public void setCarId(long carId) {
-        this.carId = carId;
     }
 }
