@@ -22,8 +22,9 @@ public class PassportData extends AbstractEntity {
     @Column(name = "identification_number", length = 45, unique = true, nullable = false)
     private String identificationNumber;
     @Column(name = "gender", length = 6, nullable = false)
+    @Enumerated(EnumType.STRING)
     private Gender gender;
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 

@@ -15,17 +15,19 @@ public class CarProfile extends AbstractEntity {
     @Column(name = "model", length = 30, nullable = false)
     private String model;
     @Column(name = "body_type", length = 30, nullable = false)
+    @Enumerated(EnumType.STRING)
     private CarBodyType bodyType;
     @Column(name = "engine_type", length = 30, nullable = false)
+    @Enumerated(EnumType.STRING)
     private CarEngineType engineType;
     @Column(name = "year_of_issue", length = 30, nullable = false)
     private int yearOfIssue;
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_profile_id")
     private List<CarImage> images;
     @Transient
     private CarImage mainImage;
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "carProfile")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carProfile")
     private List<Car> cars;
 
     public CarImage getMainImage() {

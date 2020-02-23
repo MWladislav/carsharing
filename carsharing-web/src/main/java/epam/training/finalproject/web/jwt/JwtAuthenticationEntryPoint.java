@@ -12,11 +12,11 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    private static final Logger logger = Logger.getLogger(JwtAuthenticationEntryPoint.class);
+    private static final Logger LOGGER = Logger.getLogger(JwtAuthenticationEntryPoint.class);
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
-        logger.error("Responding with 401 - unauthorized error. Message - {} ERROR!!!", e.getCause());
+        LOGGER.error(String.format("Responding with 401 - unauthorized error. Message - %s", e.getMessage()));
         httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
 }

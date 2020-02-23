@@ -21,16 +21,6 @@ public class CarImage extends AbstractEntity {
         this.mainImage = mainImage;
     }
 
-    private long carProfileId;
-
-    public long getCarProfileId() {
-        return carProfileId;
-    }
-
-    public void setCarProfileId(long carProfileId) {
-        this.carProfileId = carProfileId;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }

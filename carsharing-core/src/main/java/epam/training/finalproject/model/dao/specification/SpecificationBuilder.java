@@ -4,7 +4,6 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,17 +25,17 @@ public class SpecificationBuilder<T> {
     }
 
     public Specification<T> build(Function<SearchCriteria, Specification<T>> converter){
-        if (params.size() != 0){
+        if (params.size() == 0){
             return null;
         }
         final List<Specification<T>> specs = params.stream()
                 .map(converter)
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        Specification<T> result = specs.get(0);
+        Specification<T> result = Specification.where(specs.get(0));
 
         for (int i = 1; i < specs.size(); i++){
-            result = Objects.requireNonNull(Specification.where(result)).and(specs.get(i));
+            result = result.and(specs.get(i));
         }
         return result;
     }

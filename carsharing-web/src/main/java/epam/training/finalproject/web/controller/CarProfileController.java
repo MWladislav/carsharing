@@ -5,8 +5,6 @@ import epam.training.finalproject.model.dao.specification.CarProfileSpecificatio
 import epam.training.finalproject.model.dao.specification.SearchCriteria;
 import epam.training.finalproject.model.dao.specification.SpecificationBuilder;
 import epam.training.finalproject.model.domain.entity.CarProfile;
-import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
-import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 import epam.training.finalproject.model.service.interfaces.CarProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,30 +37,30 @@ public class CarProfileController {
         return ResponseEntity.ok(carProfileService.getAll());
     }
 
-    @GetMapping(value = "/searchCars")
-    public List<CarProfile> findByManufacturer(@RequestParam(value = "manufacturer") String manufacturer){
-        return carProfileService.findByManufacturer(manufacturer);
-    }
-
-    @GetMapping(value = "/searchCars")
-    public List<CarProfile> findByModel(@RequestParam(value = "model") String model){
-        return carProfileService.findByModel(model);
-    }
-
-    @GetMapping(value = "/searchCars")
-    public List<CarProfile> findByBodyType(@RequestParam(value = "carBodyType") CarBodyType carBodyType){
-        return carProfileService.findByBodyType(carBodyType);
-    }
-
-    @GetMapping(value = "/searchCars")
-    public List<CarProfile> findByEngineType(@RequestParam(value = "engineType") CarEngineType engineType){
-        return carProfileService.findByEngineType(engineType);
-    }
-
-    @GetMapping(value = "/searchCars")
-    public List<CarProfile> findByYearOfIssue(@RequestParam(value = "yearOfIssue") int yearOfIssue){
-        return carProfileService.findByYearOfIssue(yearOfIssue);
-    }
+//    @GetMapping(value = "/searchCars")
+//    public List<CarProfile> findByManufacturer(@RequestParam(value = "manufacturer") String manufacturer){
+//        return carProfileService.findByManufacturer(manufacturer);
+//    }
+//
+//    @GetMapping(value = "/searchCars")
+//    public List<CarProfile> findByModel(@RequestParam(value = "model") String model){
+//        return carProfileService.findByModel(model);
+//    }
+//
+//    @GetMapping(value = "/searchCars")
+//    public List<CarProfile> findByBodyType(@RequestParam(value = "carBodyType") CarBodyType carBodyType){
+//        return carProfileService.findByBodyType(carBodyType);
+//    }
+//
+//    @GetMapping(value = "/searchCars")
+//    public List<CarProfile> findByEngineType(@RequestParam(value = "engineType") CarEngineType engineType){
+//        return carProfileService.findByEngineType(engineType);
+//    }
+//
+//    @GetMapping(value = "/searchCars")
+//    public List<CarProfile> findByYearOfIssue(@RequestParam(value = "yearOfIssue") int yearOfIssue){
+//        return carProfileService.findByYearOfIssue(yearOfIssue);
+//    }
 
     @PostMapping("/update")
     public ResponseEntity<Long> updateCarProfile(@RequestBody CarProfile profile) {

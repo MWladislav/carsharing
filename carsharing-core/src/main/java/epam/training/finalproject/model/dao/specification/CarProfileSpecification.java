@@ -7,7 +7,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.stream.IntStream;
 
 public class CarProfileSpecification implements Specification<CarProfile> {
 
@@ -22,8 +21,7 @@ public class CarProfileSpecification implements Specification<CarProfile> {
     public Predicate toPredicate(Root<CarProfile> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder builder) {
         if (criteria.getValue() == null){
             return builder.or(
-                    IntStream.range(0, criteria.getValues().size())
-                            .mapToObj(i -> builder.equal(root.get(criteria.getKey()), criteria.getValues().get(i)))
+                    criteria.getValues().stream().map(o -> builder.equal(root.get(criteria.getKey()), o))
                             .toArray(Predicate[]::new));
         } else {
             switch (criteria.getOperation()){

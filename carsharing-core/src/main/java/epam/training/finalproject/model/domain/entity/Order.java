@@ -17,13 +17,14 @@ public class Order extends AbstractEntity {
     @Column(name = "order_duration", nullable = false)
     private int orderDuration;
     @Column(name = "order_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @Column(name = "price", nullable = false)
     private int price;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     private Car car;
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private List<OrderAdditionalInfo> orderAdditionalInfo;
     @ManyToOne(fetch = FetchType.LAZY)

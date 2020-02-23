@@ -7,13 +7,13 @@ import java.util.List;
 @Table(name = "cars",  uniqueConstraints = { @UniqueConstraint(columnNames = { "registration_number" }) })
 public class Car extends AbstractEntity {
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "car")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "car")
     private List<Order> orders;
     @Column(name = "available", nullable = false)
     private boolean available;
     @Column(name = "registration_number", length = 10, unique = true, nullable = false)
     private String registrationNumber;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "car_profile_id", nullable = false)
     private CarProfile carProfile;
 

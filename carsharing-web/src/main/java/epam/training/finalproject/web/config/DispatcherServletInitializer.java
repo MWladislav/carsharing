@@ -16,6 +16,6 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{/*MVCConfig.class*/};
+        return new Class<?>[]{MVCConfig.class};
     }
 }

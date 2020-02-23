@@ -26,8 +26,8 @@ public class CarImageDaoImpl implements CarImageDao {
     private final String SQL_GET_MAIN_CAR_IMAGE_BY_CAR_PROFILE_ID = "select * from car_images where image_url like '%main%' and idCarImage=?";
     private final String SQL_GET_CAR_IMAGES_BY_CAR_PROFILE_ID = "select * from car_images where car_profile_id=?";
     private final String SQL_DELETE_CAR_IMAGE = "update car_images set deleted=? where idCarImage = ?";
-    private final String SQL_UPDATE_CAR_IMAGE = "update car_images set image_url=?, car_profile_id=? where idCarImage = ?";
-    private final String SQL_SAVE_CAR_IMAGE = "insert into car_images(image_url, car_profile_id) values (?,?)";
+    private final String SQL_UPDATE_CAR_IMAGE = "update car_images set image_url=?, is_main_image = ? where id = ?";
+    private final String SQL_SAVE_CAR_IMAGE = "insert into car_images(image_url, is_main_image) values (?,?)";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -91,7 +91,7 @@ public class CarImageDaoImpl implements CarImageDao {
     @Override
     public Long update(CarImage carImage) {
         try {
-            return (long) jdbcTemplate.update(SQL_UPDATE_CAR_IMAGE, carImage.getImageUrl(), carImage.getCarProfileId(), carImage.getId());
+            return (long) jdbcTemplate.update(SQL_UPDATE_CAR_IMAGE, carImage.getImageUrl(), carImage.isMainImage(), carImage.getId());
         } catch (DataAccessException ex) {
             LOGGER.debug("CarProfile image with id " + carImage.getId() + " has invalid credentials", ex.getCause());
             return -1L;
@@ -101,7 +101,7 @@ public class CarImageDaoImpl implements CarImageDao {
     @Override
     public Long save(CarImage carImage) {
         try {
-            return (long) jdbcTemplate.update(SQL_SAVE_CAR_IMAGE, carImage.getImageUrl(), carImage.getCarProfileId());
+            return (long) jdbcTemplate.update(SQL_SAVE_CAR_IMAGE, carImage.getImageUrl(), carImage.isMainImage());
         } catch (DataAccessException ex) {
             LOGGER.debug("CarProfile image has invalid credentials", ex.getCause());
             return -1L;

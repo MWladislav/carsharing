@@ -13,7 +13,6 @@ public class CarImageMapper implements RowMapper<CarImage> {
         CarImage carImage = new CarImage();
         carImage.setId(resultSet.getInt("id"));
         carImage.setImageUrl(resultSet.getString("image_url"));
-        carImage.setCarProfileId(resultSet.getInt("car_profile_id"));
         carImage.setDeleted(resultSet.getInt("deleted") == 1);
         return carImage;
     }
