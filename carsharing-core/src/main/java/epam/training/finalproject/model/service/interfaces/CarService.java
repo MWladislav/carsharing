@@ -1,14 +1,14 @@
 package epam.training.finalproject.model.service.interfaces;
 
-import epam.training.finalproject.model.domain.entity.Car;
+import epam.training.finalproject.model.domain.dto.CarDto;
 
 import java.util.List;
 
-public interface CarService extends AbstractEntityService<Long, Car> {
+public interface CarService extends AbstractEntityService<Long, CarDto> {
 
-    Car findCarByRegistrationNumber(String number);
+    CarDto findCarByRegistrationNumber(String number);
 
-    List<Car> getCarsByAvailable(boolean available);
+    List<CarDto> getCarsByAvailable(boolean available);
 
-    Long updateCarAvailable(Car car);
+    Long updateCarAvailable(CarDto car);
 }

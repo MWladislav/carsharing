@@ -3,19 +3,24 @@ package epam.training.finalproject.model.service.impls;
 
 import epam.training.finalproject.model.dao.interfaces.CarImageDao;
 import epam.training.finalproject.model.dao.interfaces.CarProfileDao;
+import epam.training.finalproject.model.dao.interfaces.CarProfileRepository;
+import epam.training.finalproject.model.domain.dto.CarProfileDto;
 import epam.training.finalproject.model.domain.entity.CarImage;
 import epam.training.finalproject.model.domain.entity.CarProfile;
 import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
+import epam.training.finalproject.model.service.conventer.EntityConventer;
 import epam.training.finalproject.model.service.interfaces.CarProfileService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarProfileServiceImpl implements CarProfileService {
@@ -23,6 +28,9 @@ public class CarProfileServiceImpl implements CarProfileService {
     private static Logger LOGGER = Logger.getLogger(CarProfileServiceImpl.class);
 
     private final int maxYearOfIssue = 1990;
+
+    @Autowired
+    private CarProfileRepository repository;
 
     @Autowired
     private CarProfileDao carProfileDao;
@@ -76,45 +84,51 @@ public class CarProfileServiceImpl implements CarProfileService {
         return Collections.emptyList();
     }
 
-
+    @Transactional
     @Override
-    public CarProfile getById(Long id) {
+    public CarProfileDto getById(Long id) {
         if (id > 0) {
-            CarProfile carProfile = carProfileDao.getById(id).get();
-            List<CarImage> images = carImageDao.findCarImagesByCarProfileId(id);
-            carProfile.setImages(images);
-            return carProfile;
+
+            CarProfile carProfile = repository.getOne(id);
+            return (CarProfileDto) EntityConventer.convertToDto(carProfile);
+//            CarProfile carProfile = carProfileDao.getById(id).get();
+//            List<CarImage> images = carImageDao.findCarImagesByCarProfileId(id);
+//            carProfile.setImages(images);
+//            return carProfile;
         }
         return null;
     }
 
+    @Transactional
     @Override
-    public List<CarProfile> getAll() {
-         return getCarProfilesWithMainImage(carProfileDao.getAll());
+    public List<CarProfileDto> getAll() {
+//         return getCarProfilesWithMainImage(repository.findAll());
+        List<CarProfile> carProfiles = repository.findAll();
+        return carProfiles.stream().map(entity -> (CarProfileDto) EntityConventer.convertToDto(entity)).collect(Collectors.toList());
     }
 
     @Override
-    public Long delete(CarProfile carProfile) {
-        if (carProfile != null && carProfile.getId() > 0)
-            return carProfileDao.delete(carProfile);
+    public Long delete(CarProfileDto carProfileDto) {
+        if (carProfileDto != null && carProfileDto.getId() > 0)
+            return -1L;//carProfileDao.delete(carProfileDto);
         return 0L;
     }
 
     @Override
-    public Long update(CarProfile carProfile) {
-        if (carProfile != null && carProfile.getId() > 0 && carProfile.getBodyType() != null && carProfile.getEngineType() != null
-                && /*StringUtils.isNullOrEmpty(carProfile.getManufacturer()) && StringUtils.isNullOrEmpty(carProfile.getModel())
-                &&*/ carProfile.getYearOfIssue() >= maxYearOfIssue)
-            return carProfileDao.update(carProfile);
+    public Long update(CarProfileDto carProfileDto) {
+        if (carProfileDto != null && carProfileDto.getId() > 0 && carProfileDto.getBodyType() != null && carProfileDto.getEngineType() != null
+                && /*StringUtils.isNullOrEmpty(carProfileDto.getManufacturer()) && StringUtils.isNullOrEmpty(carProfileDto.getModel())
+                &&*/ carProfileDto.getYearOfIssue() >= maxYearOfIssue)
+            return -1L;//carProfileDao.update(carProfileDto);
         return 0L;
     }
 
     @Override
-    public Long save(CarProfile carProfile) {
-        if (carProfile != null && carProfile.getId() > 0 && carProfile.getBodyType() != null && carProfile.getEngineType() != null
-                && /*StringUtils.isNullOrEmpty(carProfile.getManufacturer()) && StringUtils.isNullOrEmpty(carProfile.getModel())
-                &&*/ carProfile.getYearOfIssue() >= maxYearOfIssue)
-            return carProfileDao.save(carProfile);
+    public Long save(CarProfileDto carProfileDto) {
+        if (carProfileDto != null && carProfileDto.getId() > 0 && carProfileDto.getBodyType() != null && carProfileDto.getEngineType() != null
+                && /*StringUtils.isNullOrEmpty(carProfileDto.getManufacturer()) && StringUtils.isNullOrEmpty(carProfileDto.getModel())
+                &&*/ carProfileDto.getYearOfIssue() >= maxYearOfIssue)
+            return -1L;//carProfileDao.save(carProfileDto);
         return 0L;
     }
 

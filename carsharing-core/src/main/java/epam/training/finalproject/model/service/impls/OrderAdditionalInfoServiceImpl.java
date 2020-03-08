@@ -4,7 +4,6 @@ import epam.training.finalproject.exception.EntityNotFoundException;
 import epam.training.finalproject.exception.OperationException;
 import epam.training.finalproject.model.dao.interfaces.OrderAdditionalInfoDao;
 import epam.training.finalproject.model.domain.entity.OrderAdditionalInfo;
-import epam.training.finalproject.model.service.interfaces.OrderAdditionalInfoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +11,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrderAdditionalInfoServiceImpl implements OrderAdditionalInfoService {
+public class OrderAdditionalInfoServiceImpl /*implements OrderAdditionalInfoService */{
 
     private static final Logger LOGGER = Logger.getLogger(OrderAdditionalInfoServiceImpl.class);
 
     @Autowired
     private OrderAdditionalInfoDao additionalInfoDao;
 
-    @Override
+//    @Override
     public List<OrderAdditionalInfo> findAdditionalInfoByOrderId(Long orderId) {
         if (orderId > 0) {
             List<OrderAdditionalInfo> orderAdditionalInfo = additionalInfoDao.findAdditionalInfoByOrderId(orderId);
@@ -33,7 +32,7 @@ public class OrderAdditionalInfoServiceImpl implements OrderAdditionalInfoServic
         throw new IllegalArgumentException("Order id is invalid");
     }
 
-    @Override
+//    @Override
     public List<OrderAdditionalInfo> findInfoByPayment(int price) {
         if (price > 0){
             List<OrderAdditionalInfo> additionalInfo = additionalInfoDao.findInfoByPayment(price);
@@ -47,7 +46,7 @@ public class OrderAdditionalInfoServiceImpl implements OrderAdditionalInfoServic
         throw new IllegalArgumentException("Price value is invalid");
     }
 
-    @Override
+//    @Override
     public OrderAdditionalInfo getById(Long id) {
         if (id > 0){
             return additionalInfoDao.getById(id).orElseThrow(() -> {
@@ -59,7 +58,7 @@ public class OrderAdditionalInfoServiceImpl implements OrderAdditionalInfoServic
         throw new IllegalArgumentException("Additional info id is invalid");
     }
 
-    @Override
+//    @Override
     public List<OrderAdditionalInfo> getAll() {
         List<OrderAdditionalInfo> additionalInfo = additionalInfoDao.getAll();
         if (additionalInfo.isEmpty()){
@@ -69,7 +68,7 @@ public class OrderAdditionalInfoServiceImpl implements OrderAdditionalInfoServic
         return additionalInfo;
     }
 
-    @Override
+//    @Override
     public Long delete(OrderAdditionalInfo info) {
         if (info != null){
             Long result = additionalInfoDao.delete(info);
@@ -83,7 +82,7 @@ public class OrderAdditionalInfoServiceImpl implements OrderAdditionalInfoServic
         throw new IllegalArgumentException("Additional info is invalid");
     }
 
-    @Override
+//    @Override
     public Long update(OrderAdditionalInfo info) {
         if (info != null){
             Long result = additionalInfoDao.update(info);
@@ -97,7 +96,7 @@ public class OrderAdditionalInfoServiceImpl implements OrderAdditionalInfoServic
         throw new IllegalArgumentException("Additional info is invalid");
     }
 
-    @Override
+//    @Override
     public Long save(OrderAdditionalInfo info) {
         if (info != null){
             info.setDeleted(true);

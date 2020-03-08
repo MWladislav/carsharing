@@ -1,10 +1,10 @@
 package epam.training.finalproject.model.service.interfaces;
 
-import epam.training.finalproject.model.domain.entity.AbstractEntity;
+import epam.training.finalproject.model.domain.dto.AbstractEntityDto;
 
 import java.util.List;
 
-public interface AbstractEntityService<ID, T extends AbstractEntity> {
+public interface AbstractEntityService<ID, T extends AbstractEntityDto> {
 
     T getById(ID id);
 

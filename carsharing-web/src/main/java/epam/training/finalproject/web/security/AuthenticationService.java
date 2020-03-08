@@ -6,7 +6,6 @@ import epam.training.finalproject.model.domain.entity.Role;
 import epam.training.finalproject.model.domain.entity.User;
 import epam.training.finalproject.model.domain.entity.enums.RoleName;
 import epam.training.finalproject.model.service.interfaces.RoleService;
-import epam.training.finalproject.model.service.interfaces.UserService;
 import epam.training.finalproject.web.dto.ApiResponse;
 import epam.training.finalproject.web.dto.JwtAuthenticationResponse;
 import epam.training.finalproject.web.dto.SignInDTO;
@@ -31,8 +30,8 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
     @Autowired
     private RoleService roleService;
 
@@ -56,7 +55,7 @@ public class AuthenticationService {
         user.setRoles(Collections.singletonList((userRole)));
 
         try {
-            userService.save(user);
+//            userService.save(user);
         } catch (OperationException | DuplicateEntityCredentialsException ex){
             return new ApiResponse(false, ex.getLocalizedMessage());
         }

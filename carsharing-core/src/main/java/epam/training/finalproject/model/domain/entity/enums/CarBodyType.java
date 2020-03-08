@@ -2,11 +2,11 @@ package epam.training.finalproject.model.domain.entity.enums;
 
 public enum CarBodyType {
 
-    HATCHBACK("hatchback"),
-    SEDAN("sedan"),
-    WAGON("wagon"),
-    VAN("van"),
-    COUPE("coupe");
+    hatchback("hatchback"),
+    sedan("sedan"),
+    wagon("wagon"),
+    van("van"),
+    coupe("coupe");
 
     private String type;
     CarBodyType(String type){

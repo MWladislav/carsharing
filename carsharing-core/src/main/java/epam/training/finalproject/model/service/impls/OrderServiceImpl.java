@@ -5,7 +5,6 @@ import epam.training.finalproject.exception.OperationException;
 import epam.training.finalproject.model.dao.interfaces.OrderDao;
 import epam.training.finalproject.model.domain.entity.Order;
 import epam.training.finalproject.model.domain.entity.enums.OrderStatus;
-import epam.training.finalproject.model.service.interfaces.OrderService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl /*implements OrderService*/ {
 
     private static final Logger LOGGER = Logger.getLogger(OrderServiceImpl.class);
 
@@ -35,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
         throw new IllegalArgumentException("User id is invalid");
     }
 
-    @Override
+//    @Override
     public Order getById(Long id) {
         if (id > 0) {
             return orderDao.getById(id).orElseThrow(() -> {
@@ -47,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
         throw new IllegalArgumentException("Order id is invalid");
     }
 
-    @Override
+//    @Override
     public List<Order> getAll() {
         List<Order> orders = orderDao.getAll();
         if (orders.isEmpty()) {
@@ -58,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     //TODO add logic to delete/update operations (example save())
-    @Override
+//    @Override
     public Long delete(Order order) {
         if (order != null && order.getStatus().equals(OrderStatus.FINISHED)) {
             order.setDeleted(true);
@@ -67,28 +66,28 @@ public class OrderServiceImpl implements OrderService {
         throw new IllegalArgumentException("Order is invalid");
     }
 
-    @Override
+//    @Override
     public Long updateOrderSetPaid(Order order) {
         if (order != null && order.getPaymentDate().isBefore(order.getConfirmationDate().plusMinutes(orderDurationTimeOut)) && order.getStatus() == OrderStatus.PAID)
             return orderDao.updateOrderSetPaid(order);
         throw new IllegalArgumentException("Order is invalid");
     }
 
-    @Override
+//    @Override
     public Long updateOrderStatus(Order order) {
         if (order != null)
             return orderDao.updateOrderStatus(order);
         throw new IllegalArgumentException("Order is invalid");
     }
 
-    @Override
+//    @Override
     public Long update(Order order) {
         if (order != null && order.getConfirmationDate() != null && order.getStatus() == OrderStatus.CONFIRMED && order.getPrice() > 0)
             return orderDao.update(order);
         throw new IllegalArgumentException("Order is invalid");
     }
 
-    @Override
+//    @Override
     public Long save(Order order) {
         if (order != null) {
             order.setStatus(OrderStatus.CREATED);

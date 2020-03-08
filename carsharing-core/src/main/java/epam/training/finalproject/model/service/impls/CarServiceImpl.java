@@ -4,14 +4,13 @@ import epam.training.finalproject.exception.EntityNotFoundException;
 import epam.training.finalproject.exception.OperationException;
 import epam.training.finalproject.model.dao.interfaces.CarDao;
 import epam.training.finalproject.model.domain.entity.Car;
-import epam.training.finalproject.model.service.interfaces.CarService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-public class CarServiceImpl implements CarService {
+public class CarServiceImpl /*implements CarService*/ {
 
     private static final Logger LOGGER = Logger.getLogger(CarServiceImpl.class);
 
@@ -19,7 +18,7 @@ public class CarServiceImpl implements CarService {
     private CarDao carDao;
 
     //TODO add regex to reg number
-    @Override
+//    @Override
     public Car findCarByRegistrationNumber(String number) {
         if (number != null && !StringUtils.isEmpty(number)) {
             Car car = carDao.findByRegistrationNumber(number).orElseThrow(() -> {
@@ -36,7 +35,7 @@ public class CarServiceImpl implements CarService {
         throw new IllegalArgumentException("Registration number is invalid");
     }
 
-    @Override
+//    @Override
     public Long updateCarAvailable(Car car) {
         if (car != null){
             Long result = carDao.updateCarAvailable(car);
@@ -50,7 +49,7 @@ public class CarServiceImpl implements CarService {
         throw new IllegalArgumentException("Car is invalid");
     }
 
-    @Override
+//    @Override
     public List<Car> getCarsByAvailable(boolean available) {
         List<Car> cars = carDao.getCarsByAvailable(available);
         if (cars.isEmpty()){
@@ -60,7 +59,7 @@ public class CarServiceImpl implements CarService {
         return cars;
     }
 
-    @Override
+//    @Override
     public Car getById(Long id) {
         if (id > 0){
             Car car = carDao.getById(id).orElseThrow(() -> {
@@ -77,7 +76,7 @@ public class CarServiceImpl implements CarService {
         throw new IllegalArgumentException("Car id is invalid");
     }
 
-    @Override
+//    @Override
     public List<Car> getAll() {
         List<Car> cars = carDao.getAll();
         if (cars.isEmpty()){
@@ -87,7 +86,7 @@ public class CarServiceImpl implements CarService {
         return cars;
     }
 
-    @Override
+//    @Override
     public Long delete(Car car) {
         if (car != null) {
             car.setDeleted(true);
@@ -105,7 +104,7 @@ public class CarServiceImpl implements CarService {
         throw new IllegalArgumentException("Car doesn't exist");
     }
 
-    @Override
+//    @Override
     public Long update(Car car) {
         if (car != null) {
             Long result = carDao.update(car);
@@ -120,7 +119,7 @@ public class CarServiceImpl implements CarService {
         throw new IllegalArgumentException("Car doesn't exist");
     }
 
-    @Override
+//    @Override
     public Long save(Car car) {
         if (car != null) {
             Long result = carDao.save(car);

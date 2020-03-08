@@ -4,10 +4,23 @@ import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "car_profiles")
+@NamedEntityGraphs({
+        @NamedEntityGraph(name = "CarProfile.CarsAndImages",includeAllAttributes = true, attributeNodes = {
+                @NamedAttributeNode(value = "cars", subgraph = "CarProfile.cars"),
+                @NamedAttributeNode(value = "images")
+        }, subgraphs = {
+                @NamedSubgraph(name = "CarProfile.cars",  attributeNodes = {})
+        }),
+        @NamedEntityGraph(name = "CarProfile.Images", attributeNodes = {
+                @NamedAttributeNode(value = "images")
+        }),
+        @NamedEntityGraph(name = "CarProfile.NoJoins", includeAllAttributes = true)
+})
 public class CarProfile extends AbstractEntity {
 
     @Column(name = "manufacturer", length = 30, nullable = false)
@@ -39,6 +52,8 @@ public class CarProfile extends AbstractEntity {
     }
 
     public List<Car> getCars() {
+        if (cars == null)
+            cars = new ArrayList<>();
         return cars;
     }
 
@@ -47,6 +62,8 @@ public class CarProfile extends AbstractEntity {
     }
 
     public List<CarImage> getImages() {
+        if (images == null)
+            images = new ArrayList<>();
         return images;
     }
 

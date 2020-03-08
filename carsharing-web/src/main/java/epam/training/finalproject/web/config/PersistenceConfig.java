@@ -52,7 +52,7 @@ public class PersistenceConfig {
         em.setDataSource(dataSource());
         em.setPackagesToScan("epam.training.finalproject.model.*");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(additionalProperties());
+        em.setJpaProperties(hibernateProperties());
         return em;
     }
 
@@ -69,7 +69,7 @@ public class PersistenceConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    final Properties additionalProperties() {
+    final Properties hibernateProperties() {
         final Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
