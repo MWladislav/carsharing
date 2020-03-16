@@ -7,20 +7,22 @@ VALUES (1, 'adminland', 'admincity', 'adminstreet', 1, 0),
        (6, 'Belarus', 'Lida', 'Pobedy', 5, 0);
 INSERT INTO carsharing.car_profiles (id, manufacturer, model, body_type, engine_type, year_of_issue,
                                      deleted)
-VALUES (1, 'honda', 'civic', 'sedan', 'fuel', 2010, 0),
-       (2, 'audi', 'r8', 'sedan', 'electric', 2016, 0),
-       (3, 'lada', 'priora', 'sedan', 'fuel', 1980, 0),
-       (4, 'testman', 'testmodel', 'wagon', 'fuel', 1999, 0),
-       (5, 'kia', 'rio', 'hatchback', 'fuel', 2012, 0),
-       (6, 'volkswagen', 'b5', 'sedan', 'fuel', 2005, 0);
+VALUES (1, 'car_manufacturer', 'model', 'sedan', 'fuel', 2020, 0),
+       (2, 'honda', 'civic', 'sedan', 'fuel', 2010, 0),
+       (3, 'audi', 'r8', 'sedan', 'electric', 2016, 0),
+       (4, 'lada', 'priora', 'sedan', 'fuel', 1980, 0),
+       (5, 'testman', 'testmodel', 'wagon', 'fuel', 1999, 0),
+       (6, 'kia', 'rio', 'hatchback', 'fuel', 2012, 0),
+       (7, 'volkswagen', 'b5', 'sedan', 'fuel', 2005, 0);
 INSERT INTO carsharing.car_images (id, is_main_image, image_url, car_profile_id, deleted)
-VALUES (1, 0, '/resources/imgs/audiR8_1.jpg', 2, 0),
-       (2, 0, '/resources/imgs/audiR8_2.jpg', 2, 0),
-       (3, 0, '/resources/imgs/audiR8_3.jpg', 2, 0),
-       (4, 0, '/resources/imgs/hondaCivic_1.png', 1, 0),
-       (5, 0, '/resources/imgs/hondaCivic_2.jpg', 1, 0),
-       (6, 0, '/resources/imgs/ladaPriora_1.jpg', 3, 0),
-       (7, 0, '/resources/imgs/testCar_1.jpg', 4, 0);
+VALUES (1, 1, '/resources/imgs/default_main_img.jpg', 1, 0),
+       (2, 0, '/resources/imgs/audiR8_1.jpg', 2, 0),
+       (3, 0, '/resources/imgs/audiR8_2.jpg', 2, 0),
+       (4, 0, '/resources/imgs/audiR8_3.jpg', 2, 0),
+       (5, 0, '/resources/imgs/hondaCivic_1.png', 1, 0),
+       (6, 0, '/resources/imgs/hondaCivic_2.jpg', 1, 0),
+       (7, 0, '/resources/imgs/ladaPriora_1.jpg', 3, 0),
+       (8, 0, '/resources/imgs/testCar_1.jpg', 4, 0);
 INSERT INTO carsharing.cars (id, available, deleted, registration_number, car_profile_id)
 VALUES (1, 1, 0, '1234BP-4', 1),
        (2, 1, 0, '1337AI-4', 2),

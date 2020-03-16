@@ -1,12 +1,8 @@
 package epam.training.finalproject.web.controller;
 
 import epam.training.finalproject.model.dao.interfaces.CarProfileRepository;
-import epam.training.finalproject.model.dao.specification.CarProfileSpecification;
 import epam.training.finalproject.model.dao.specification.SearchCriteria;
-import epam.training.finalproject.model.dao.specification.SpecificationBuilder;
 import epam.training.finalproject.model.domain.dto.CarProfileDto;
-import epam.training.finalproject.model.domain.entity.CarProfile;
-import epam.training.finalproject.model.service.conventer.EntityConventer;
 import epam.training.finalproject.model.service.interfaces.CarProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/cars")
@@ -27,14 +21,9 @@ public class CarProfileController {
     @Autowired
     private CarProfileRepository repository;
 
-    @Transactional
     @GetMapping(value = "/searchCars")
     public List<CarProfileDto> searchCars(@RequestBody List<SearchCriteria> params) {
-        List<CarProfile> all = repository.findAll(new SpecificationBuilder<CarProfile>(params)
-                .build(CarProfileSpecification::new));
-        return all.stream()
-                .map(carProfile -> (CarProfileDto) EntityConventer.convertToDto(carProfile))
-                .collect(Collectors.toList());
+        return carProfileService.findCarProfilesByCriteria(params);
     }
 
 //    @GetMapping(value = "/profile")

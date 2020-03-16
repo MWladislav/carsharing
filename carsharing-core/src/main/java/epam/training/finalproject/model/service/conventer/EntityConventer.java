@@ -1,14 +1,9 @@
 package epam.training.finalproject.model.service.conventer;
 
-import epam.training.finalproject.model.domain.dto.AbstractEntityDto;
-import epam.training.finalproject.model.domain.dto.CarDto;
-import epam.training.finalproject.model.domain.dto.CarProfileDto;
-import epam.training.finalproject.model.domain.dto.UserDto;
-import epam.training.finalproject.model.domain.entity.AbstractEntity;
-import epam.training.finalproject.model.domain.entity.Car;
-import epam.training.finalproject.model.domain.entity.CarProfile;
-import epam.training.finalproject.model.domain.entity.User;
-import org.hibernate.Hibernate;
+import epam.training.finalproject.model.domain.dto.*;
+import epam.training.finalproject.model.domain.entity.*;
+
+import java.util.stream.Collectors;
 
 public class EntityConventer {
 
@@ -19,6 +14,10 @@ public class EntityConventer {
             return convertToCarProfileDto((CarProfile) entity);
         } else if (entity instanceof Car) {
             return convertToCarDto((Car) entity);
+        } else if (entity instanceof CarImage) {
+            return convertToCarImageDto((CarImage) entity);
+        } else if (entity instanceof Order) {
+            return convertToOrderDto((Order) entity);
         } else {
             return null;
         }
@@ -46,13 +45,19 @@ public class EntityConventer {
         carProfileDto.setModel(carProfile.getModel());
         carProfileDto.setYearOfIssue(carProfile.getYearOfIssue());
         if (carProfile.getImages() != null) {
-            carProfileDto.setImages(carProfile.getImages());
+            carProfileDto.setImageDto(
+                    carProfile.getImages().stream()
+                            .map(EntityConventer::convertToCarImageDto)
+                            .collect(Collectors.toList()));
         }
         if (carProfile.getMainImage() != null) {
-            carProfileDto.setMainImage(carProfile.getMainImage());
+            carProfileDto.setMainImageDto(convertToCarImageDto(carProfile.getMainImage()));
         }
-        if (Hibernate.isInitialized(carProfile.getCars()) && carProfile.getCars() != null) {
-            carProfileDto.setCars(carProfile.getCars());
+        if (carProfile.getCars() != null) {
+            carProfileDto.setCarDto(
+                    carProfile.getCars().stream()
+                            .map(EntityConventer::convertToCarDto)
+                            .collect(Collectors.toList()));
         }
         return carProfileDto;
     }
@@ -62,11 +67,37 @@ public class EntityConventer {
         carDto.setRegistrationNumber(car.getRegistrationNumber());
         carDto.setAvailable(car.isAvailable());
         if (car.getCarProfile() != null){
-            carDto.setCarProfile(car.getCarProfile());
+            carDto.setCarProfileDto(convertToCarProfileDto(car.getCarProfile()));
         }
         if (car.getOrders() != null){
-            carDto.setOrders(car.getOrders());
+            carDto.setOrderDto(
+                    car.getOrders().stream()
+                            .map(EntityConventer::convertToOrderDto)
+                            .collect(Collectors.toList()));
         }
         return carDto;
+    }
+
+    private static CarImageDto convertToCarImageDto(CarImage carImage) {
+        CarImageDto carImageDto = new CarImageDto();
+        carImageDto.setImageUrl(carImage.getImageUrl());
+        carImageDto.setMainImage(carImage.isMainImage());
+        return carImageDto;
+    }
+
+    private static OrderDto convertToOrderDto(Order order) {
+        OrderDto orderDto = new OrderDto();
+        orderDto.setConfirmationDate(order.getConfirmationDate());
+        orderDto.setPaymentDate(order.getPaymentDate());
+        orderDto.setOrderDuration(order.getOrderDuration());
+        orderDto.setStatus(order.getStatus());
+        orderDto.setPrice(order.getPrice());
+
+//        orderDto.setCarDto(convertToCarDto(order.getCar()));
+
+//        orderDto.setOrderAdditionalInfoDto(order.getOrderAdditionalInfo());
+
+//        orderDto.setUserDto(order.getUser());
+        return orderDto;
     }
 }

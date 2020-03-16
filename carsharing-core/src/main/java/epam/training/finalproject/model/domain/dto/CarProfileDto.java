@@ -1,7 +1,5 @@
 package epam.training.finalproject.model.domain.dto;
 
-import epam.training.finalproject.model.domain.entity.Car;
-import epam.training.finalproject.model.domain.entity.CarImage;
 import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
 import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 
@@ -14,9 +12,9 @@ public class CarProfileDto extends AbstractEntityDto {
     private CarBodyType bodyType;
     private CarEngineType engineType;
     private int yearOfIssue;
-    private List<CarImage> images;
-    private CarImage mainImage;
-    private List<Car> cars;
+    private List<CarImageDto> imageDto;
+    private CarImageDto mainImageDto;
+    private List<CarDto> carDto;
 
     public CarProfileDto() {
     }
@@ -61,27 +59,27 @@ public class CarProfileDto extends AbstractEntityDto {
         this.yearOfIssue = yearOfIssue;
     }
 
-    public List<CarImage> getImages() {
-        return images;
+    public List<CarImageDto> getImageDto() {
+        return imageDto;
     }
 
-    public void setImages(List<CarImage> images) {
-        this.images = images;
+    public void setImageDto(List<CarImageDto> imageDto) {
+        this.imageDto = imageDto;
     }
 
-    public CarImage getMainImage() {
-        return mainImage;
+    public CarImageDto getMainImageDto() {
+        return mainImageDto;
     }
 
-    public void setMainImage(CarImage mainImage) {
-        this.mainImage = mainImage;
+    public void setMainImageDto(CarImageDto mainImageDto) {
+        this.mainImageDto = mainImageDto;
     }
 
-    public List<Car> getCars() {
-        return cars;
+    public List<CarDto> getCarDto() {
+        return carDto;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setCarDto(List<CarDto> carDto) {
+        this.carDto = carDto;
     }
 }

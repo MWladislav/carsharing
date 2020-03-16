@@ -1,26 +1,31 @@
 package epam.training.finalproject.model.domain.dto;
 
-import epam.training.finalproject.model.domain.entity.CarProfile;
-import epam.training.finalproject.model.domain.entity.Order;
-
 import java.util.List;
 
 public class CarDto extends AbstractEntityDto{
 
-    private List<Order> orders;
+    private List<OrderDto> orderDto;
     private boolean available;
     private String registrationNumber;
-    private CarProfile carProfile;
+    private CarProfileDto carProfileDto;
 
     public CarDto() {
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<OrderDto> getOrderDto() {
+        return orderDto;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrderDto(List<OrderDto> orderDto) {
+        this.orderDto = orderDto;
+    }
+
+    public CarProfileDto getCarProfileDto() {
+        return carProfileDto;
+    }
+
+    public void setCarProfileDto(CarProfileDto carProfileDto) {
+        this.carProfileDto = carProfileDto;
     }
 
     public boolean isAvailable() {
@@ -37,13 +42,5 @@ public class CarDto extends AbstractEntityDto{
 
     public void setRegistrationNumber(String registrationNumber) {
         this.registrationNumber = registrationNumber;
-    }
-
-    public CarProfile getCarProfile() {
-        return carProfile;
-    }
-
-    public void setCarProfile(CarProfile carProfile) {
-        this.carProfile = carProfile;
     }
 }

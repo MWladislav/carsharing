@@ -1,21 +1,11 @@
 package epam.training.finalproject.model.service.interfaces;
 
+import epam.training.finalproject.model.dao.specification.SearchCriteria;
 import epam.training.finalproject.model.domain.dto.CarProfileDto;
-import epam.training.finalproject.model.domain.entity.CarProfile;
-import epam.training.finalproject.model.domain.entity.enums.CarBodyType;
-import epam.training.finalproject.model.domain.entity.enums.CarEngineType;
 
 import java.util.List;
 
 public interface CarProfileService extends AbstractEntityService<Long, CarProfileDto> {
 
-    List<CarProfile> findByManufacturer(String manufacturer);
-
-    List<CarProfile> findByModel(String model);
-
-    List<CarProfile> findByBodyType(CarBodyType bodyType);
-
-    List<CarProfile> findByEngineType(CarEngineType engineType);
-
-    List<CarProfile> findByYearOfIssue(int yearOfIssue);
+    List<CarProfileDto> findCarProfilesByCriteria(List<SearchCriteria> criteria);
 }

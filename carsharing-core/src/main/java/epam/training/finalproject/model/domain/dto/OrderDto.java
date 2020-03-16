@@ -1,8 +1,5 @@
 package epam.training.finalproject.model.domain.dto;
 
-import epam.training.finalproject.model.domain.entity.Car;
-import epam.training.finalproject.model.domain.entity.OrderAdditionalInfo;
-import epam.training.finalproject.model.domain.entity.User;
 import epam.training.finalproject.model.domain.entity.enums.OrderStatus;
 
 import java.time.LocalDateTime;
@@ -15,9 +12,9 @@ public class OrderDto extends AbstractEntityDto {
     private int orderDuration;
     private OrderStatus status;
     private int price;
-    private Car car;
-    private List<OrderAdditionalInfo> orderAdditionalInfo;
-    private User user;
+    private CarDto carDto;
+    private List<OrderAdditionalInfoDto> orderAdditionalInfoDto;
+    private UserDto userDto;
 
     public OrderDto() {
     }
@@ -62,27 +59,27 @@ public class OrderDto extends AbstractEntityDto {
         this.price = price;
     }
 
-    public Car getCar() {
-        return car;
+    public CarDto getCarDto() {
+        return carDto;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCarDto(CarDto carDto) {
+        this.carDto = carDto;
     }
 
-    public List<OrderAdditionalInfo> getOrderAdditionalInfo() {
-        return orderAdditionalInfo;
+    public List<OrderAdditionalInfoDto> getOrderAdditionalInfoDto() {
+        return orderAdditionalInfoDto;
     }
 
-    public void setOrderAdditionalInfo(List<OrderAdditionalInfo> orderAdditionalInfo) {
-        this.orderAdditionalInfo = orderAdditionalInfo;
+    public void setOrderAdditionalInfoDto(List<OrderAdditionalInfoDto> orderAdditionalInfoDto) {
+        this.orderAdditionalInfoDto = orderAdditionalInfoDto;
     }
 
-    public User getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 }
