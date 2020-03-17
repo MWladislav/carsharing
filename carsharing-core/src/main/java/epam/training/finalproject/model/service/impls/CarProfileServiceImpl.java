@@ -52,7 +52,8 @@ public class CarProfileServiceImpl implements CarProfileService {
             List<CarProfile> carProfiles = getCarProfilesWithMainImage(cpRepo.findAll(criteriaSpec));
             return carProfiles.stream()
                     .map(carProfile -> {
-//                        carProfile.setCars(null);
+                        carProfile.getCars()
+                                .forEach(car -> car.setCarProfile(null));
                         return (CarProfileDto)EntityConventer.convertToDto(carProfile);
                     })
                     .collect(Collectors.toList());
@@ -61,17 +62,17 @@ public class CarProfileServiceImpl implements CarProfileService {
         return Collections.emptyList();
     }
 
+//    private void getCarsWithoutCarProfile(List<Car> cars) {
+//        cars.forEach(car -> car.setCarProfile(null));
+//    }
+
     @Transactional
     @Override
     public CarProfileDto getById(Long id) {
         if (id > 0) {
-
             CarProfile carProfile = cpRepo.getOne(id);
+            carProfile.getCars().forEach(car -> car.setCarProfile(null));
             return (CarProfileDto) EntityConventer.convertToDto(carProfile);
-//            CarProfile carProfile = carProfileDao.getById(id).get();
-//            List<CarImage> images = carImageDao.findCarImagesByCarProfileId(id);
-//            carProfile.setImages(images);
-//            return carProfile;
         }
         return null;
     }
@@ -79,9 +80,13 @@ public class CarProfileServiceImpl implements CarProfileService {
     @Transactional
     @Override
     public List<CarProfileDto> getAll() {
-//         return getCarProfilesWithMainImage(repository.findAll());
-        List<CarProfile> carProfiles = cpRepo.findAll();
-        return carProfiles.stream().map(entity -> (CarProfileDto) EntityConventer.convertToDto(entity)).collect(Collectors.toList());
+        return getCarProfilesWithMainImage(cpRepo.findAll()).stream()
+                .map(carProfile -> {
+                    carProfile.getCars()
+                            .forEach(car -> car.setCarProfile(null));
+                    return (CarProfileDto)EntityConventer.convertToDto(carProfile);
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

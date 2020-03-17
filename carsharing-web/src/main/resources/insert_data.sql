@@ -7,13 +7,13 @@ VALUES (1, 'adminland', 'admincity', 'adminstreet', 1, 0),
        (6, 'Belarus', 'Lida', 'Pobedy', 5, 0);
 INSERT INTO carsharing.car_profiles (id, manufacturer, model, body_type, engine_type, year_of_issue,
                                      deleted)
-VALUES (1, 'car_manufacturer', 'model', 'sedan', 'fuel', 2020, 0),
-       (2, 'honda', 'civic', 'sedan', 'fuel', 2010, 0),
-       (3, 'audi', 'r8', 'sedan', 'electric', 2016, 0),
-       (4, 'lada', 'priora', 'sedan', 'fuel', 1980, 0),
-       (5, 'testman', 'testmodel', 'wagon', 'fuel', 1999, 0),
-       (6, 'kia', 'rio', 'hatchback', 'fuel', 2012, 0),
-       (7, 'volkswagen', 'b5', 'sedan', 'fuel', 2005, 0);
+VALUES (1, 'car_manufacturer', 'model', 'SEDAN', 'FUEL', 2020, 0),
+       (2, 'honda', 'civic', 'SEDAN', 'FUEL', 2010, 0),
+       (3, 'audi', 'r8', 'SEDAN', 'ELECTRIC', 2016, 0),
+       (4, 'lada', 'priora', 'SEDAN', 'FUEL', 1980, 0),
+       (5, 'testman', 'testmodel', 'WAGON', 'FUEL', 1999, 0),
+       (6, 'kia', 'rio', 'HATCHBACK', 'FUEL', 2012, 0),
+       (7, 'volkswagen', 'b5', 'SEDAN', 'FUEL', 2005, 0);
 INSERT INTO carsharing.car_images (id, is_main_image, image_url, car_profile_id, deleted)
 VALUES (1, 1, '/resources/imgs/default_main_img.jpg', 1, 0),
        (2, 0, '/resources/imgs/audiR8_1.jpg', 2, 0),
@@ -33,9 +33,9 @@ VALUES (1, 1, 0, '1234BP-4', 1),
        (7, 0, 0, '8720BT-4', 6);
 INSERT INTO carsharing.passport_data (id, first_name, last_name, patronymic, birth_date, passport_number,
                                       identification_number, gender, address_id, deleted)
-VALUES (1, 'a', 'd', 'min', '1999-05-22', '1337', '1337228', 'male', 1, 0),
-       (2, 'test_name', 'test_l_name', 'test_patr', '2000-01-01', '351213b21', '123510', 'female', 2, 0),
-       (3, 'andrey', 'yaskelevich', 'olegovich', '1998-05-16', '231cz23q2321', '31021160', 'male', 4, 0);
+VALUES (1, 'a', 'd', 'min', '1999-05-22', '1337', '1337228', 'MALE', 1, 0),
+       (2, 'test_name', 'test_l_name', 'test_patr', '2000-01-01', '351213b21', '123510', 'FEMALE', 2, 0),
+       (3, 'andrey', 'yaskelevich', 'olegovich', '1998-05-16', '231cz23q2321', '31021160', 'MALE', 4, 0);
 INSERT INTO carsharing.roles (id, role_name)
 VALUES (1, 'ROLE_USER'),
        (2, 'ROLE_ADMIN');
@@ -45,12 +45,12 @@ VALUES (1, 'admin', '$2a$11$MJtj2BFcyPyJJUMO0fYjoeGF1RgaD1uBTCSYyIDkfRrFVIjX329b
        (3, 'testuser2', '$2a$11$BDG.Bo/VKwrT38AsZdL3Zu4pNhAgnO7BSVQq6ppBwiNWYdKIfvVWy', 'test1@mail.ru', 1, 3,0);
 INSERT INTO carsharing.orders (id, confirmation_date, payment_date, order_duration, order_status, price, user_id,
                                car_id, deleted)
-VALUES (1, '2000-12-31 21:00:00', '2000-12-31 21:00:00', 6, 'finished', 200, 1, 3, 0),
-       (2, '2005-05-04 21:00:00', '2005-05-04 21:00:00', 2, 'finished', 123, 1, 2, 0),
-       (3, '2011-09-07 21:00:00', '2011-09-07 21:00:00', 2, 'finished', 123, 2, 1, 0),
-       (4, '2019-09-07 21:23:05', '2019-09-07 22:02:00', 4, 'finished', 100, 3, 5, 0),
-       (5, '2019-10-10 18:55:33', '2019-10-10 19:00:00', 10, 'finished', 300, 3, 6, 0),
-       (6, '2019-11-29 12:12:31', '2019-10-29 15:38:00', 6, 'finished', 190, 2, 7, 0);
+VALUES (1, '2000-12-31 21:00:00', '2000-12-31 21:00:00', 6, 'FINISHED', 200, 1, 3, 0),
+       (2, '2005-05-04 21:00:00', '2005-05-04 21:00:00', 2, 'FINISHED', 123, 1, 2, 0),
+       (3, '2011-09-07 21:00:00', '2011-09-07 21:00:00', 2, 'FINISHED', 123, 2, 1, 0),
+       (4, '2019-09-07 21:23:05', '2019-09-07 22:02:00', 4, 'FINISHED', 100, 3, 5, 0),
+       (5, '2019-10-10 18:55:33', '2019-10-10 19:00:00', 10, 'FINISHED', 300, 3, 6, 0),
+       (6, '2019-11-29 12:12:31', '2019-10-29 15:38:00', 6, 'FINISHED', 190, 2, 7, 0);
 INSERT INTO carsharing.order_additional_info (id, info_details, payment_for_violation, order_id,
                                               deleted)
 VALUES (1, 'light car crash', 100, 1, 0);
